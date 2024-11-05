@@ -8,6 +8,20 @@
     <artifactId>Chat</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!--
+        打包方式
+        pom：针对root(一级工程)进行使用，并且当前的root(顶级pom)可以管理所有jar包
+        jar：默认，常规springboot打包就使用jar
+        war：老项目，使用外部tomcat容器进行发布和运行
+    -->
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>chat-common</module>
+        <module>chat-pojo</module>
+        <module>chat-api</module>
+    </modules>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
