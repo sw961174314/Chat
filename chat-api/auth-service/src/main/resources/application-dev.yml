@@ -1,0 +1,11 @@
+# 服务配置
+server:
+  port: 8808
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+#        username: nacos
+#        password: nacos
