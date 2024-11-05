@@ -11,4 +11,12 @@
 
     <artifactId>chat-pojo</artifactId>
 
+    <dependencies>
+        <!--common通用模块-->
+        <dependency>
+            <groupId>com.chat</groupId>
+            <artifactId>chat-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
