@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/Applicaiton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-pojo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-pojo/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/FileApplicaiton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/Applicaiton.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/AuthApplicaiton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/Main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +40,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "E:/Project/Chat/chat-api/main-service/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -48,10 +48,44 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="Applicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Project\Chat\chat-api\main-service\src\main\resources" />
+      <recent name="E:\Project\Chat\chat-api\file-service\src\main\resources" />
+      <recent name="E:\Project\Chat\chat-api\main-service\src\main\java\com\chat" />
+      <recent name="E:\Project\Chat\chat-api\file-service\src\main\java\com\chat" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.MainApplication">
+    <configuration name="AuthApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="auth-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.Applicaiton" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.AuthApplicaiton" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.chat.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="file-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.FileApplicaiton" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.chat.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="main-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.MainApplication" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.chat.*" />
@@ -74,7 +108,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.Applicaiton" />
+        <item itemvalue="Spring Boot.MainApplication" />
+        <item itemvalue="Spring Boot.FileApplicaiton" />
+        <item itemvalue="Spring Boot.AuthApplicaiton" />
       </list>
     </recent_temporary>
   </component>
@@ -86,7 +122,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1730782892899</updated>
-      <workItem from="1730782894073" duration="3934000" />
+      <workItem from="1730782894073" duration="4931000" />
     </task>
     <servers />
   </component>
