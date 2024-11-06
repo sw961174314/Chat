@@ -1,4 +1,4 @@
-package com.chat.controller;
+package com.chat.tasks;
 
 import com.chat.utils.SMSUtils;
 import lombok.extern.slf4j.Slf4j;
