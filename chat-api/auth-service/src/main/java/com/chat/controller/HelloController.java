@@ -14,6 +14,9 @@ public class HelloController {
     @Autowired
     private SMSUtils smsUtils;
 
+    @Autowired
+    private SMSTask smsTask;
+
     @GetMapping("hello")
     public Object Helllo() {
         return "Hello world~";
@@ -28,5 +31,16 @@ public class HelloController {
     public Object sms() throws Exception {
         smsUtils.sendSMS(MyInfo.getMobile(), "1234");
         return "Send SMS OK~";
+    }
+
+    /**
+     * 发送短信
+     * @return
+     * @throws Exception
+     */
+    @GetMapping("smsTask")
+    public Object smsTask() throws Exception {
+        smsTask.sendSMSInTask(MyInfo.getMobile(), "1234");
+        return "Send SMS In Task OK~";
     }
 }
