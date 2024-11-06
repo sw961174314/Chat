@@ -4,7 +4,6 @@ import java.util.Map;
 
 /**
  * 自定义响应数据类型枚举升级版本
- *
  * @Title: GraceJSONResult.java
  * @Package com.chat.utils
  * @Description: 自定义响应数据结构
