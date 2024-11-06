@@ -24,7 +24,7 @@ spring:
           uri: lb://main-service
           predicates:
             - Path=/m/**
-      globalcors:
+      globalcors: # 解决跨域问题
         cors-configurations:
           '[/**]':
             allowedOriginPatterns: "*"
