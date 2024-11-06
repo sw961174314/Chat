@@ -24,3 +24,16 @@ spring:
           uri: lb://main-service
           predicates:
             - Path=/m/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedHeaders: '*'
+            allowedMethods: '*'
+            allowCredentials: true
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 5379
+      database: 0
+      password:

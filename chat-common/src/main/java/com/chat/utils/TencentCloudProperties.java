@@ -12,6 +12,6 @@ import org.springframework.stereotype.Component;
 public class TencentCloudProperties {
 
     private String SecretId;
-    private String SecretKey;
 
+    private String SecretKey;
 }
