@@ -3,6 +3,7 @@ package com.chat.controller;
 import com.chat.base.BaseInfoProperties;
 import com.chat.grace.result.GraceJSONResult;
 import com.chat.tasks.SMSTask;
+import com.chat.utils.IPUtil;
 import com.chat.utils.MyInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,11 @@ public class PassportController extends BaseInfoProperties {
         if (StringUtils.isBlank(mobile)) {
             return GraceJSONResult.error();
         }
+        // 获得用户的手机号/ip
+        String userIp = IPUtil.getRequestIp(request);
+        // 限制该用户的手机号/ip只能在60秒内获得一次验证码
+        redis.setnx60s(MOBILE_SMSCODE + ":" + userIp, mobile);
+
         // 验证码
         String code = String.valueOf((int) ((Math.random() * 9 + 1) * 100000));
         log.info("code:" + code);
