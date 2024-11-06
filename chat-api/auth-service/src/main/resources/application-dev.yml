@@ -3,6 +3,12 @@ server:
   port: 8808
 
 spring:
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 5379
+      database: 0
+      password:
   cloud:
     nacos:
       discovery:
