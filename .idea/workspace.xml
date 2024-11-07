@@ -80,7 +80,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.GatewayApplicaiton">
+  <component name="RunManager" selected="Spring Boot.AuthApplicaiton">
     <configuration name="AuthApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="auth-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.AuthApplicaiton" />
@@ -164,7 +164,7 @@
       <workItem from="1730851187013" duration="9778000" />
       <workItem from="1730867498997" duration="3902000" />
       <workItem from="1730938392026" duration="10151000" />
-      <workItem from="1730954257747" duration="3606000" />
+      <workItem from="1730954257747" duration="4607000" />
     </task>
     <servers />
   </component>

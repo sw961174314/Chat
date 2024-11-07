@@ -16,10 +16,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -89,9 +86,9 @@ public class PassportController extends BaseInfoProperties {
         // 4.设置用户分布式会话，保存用户的token令牌，存储到Redis中
         String uToken = TOKEN_USER_PREFIX + SYMBOL_DOT + UUID.randomUUID();
         // 本方式只能限制用户在一台设备进行登录
-        // redis.set(REDIS_USER_TOKEN + ":" + user.getId(), uToken);   // 设置分布式会话
+        redis.set(REDIS_USER_TOKEN + ":" + user.getId(), uToken);   // 设置分布式会话
         // 本方式允许用户在多端多设备进行登录
-        redis.set(REDIS_USER_TOKEN + ":" + uToken, user.getId());   // 设置分布式会话
+        // redis.set(REDIS_USER_TOKEN + ":" + uToken, user.getId());   // 设置分布式会话
         // 5.返回用户数据给前端
         UsersVO usersVO = new UsersVO();
         BeanUtils.copyProperties(user, usersVO);
@@ -125,13 +122,26 @@ public class PassportController extends BaseInfoProperties {
         // 4.设置用户分布式会话，保存用户的token令牌，存储到Redis中
         String uToken = TOKEN_USER_PREFIX + SYMBOL_DOT + UUID.randomUUID();
         // 本方式只能限制用户在一台设备进行登录
-        // redis.set(REDIS_USER_TOKEN + ":" + user.getId(), uToken);   // 设置分布式会话
+        redis.set(REDIS_USER_TOKEN + ":" + user.getId(), uToken);   // 设置分布式会话
         // 本方式允许用户在多端多设备进行登录
-        redis.set(REDIS_USER_TOKEN + ":" + uToken, user.getId());   // 设置分布式会话
+        // redis.set(REDIS_USER_TOKEN + ":" + uToken, user.getId());   // 设置分布式会话
         // 5.返回用户数据给前端
         UsersVO usersVO = new UsersVO();
         BeanUtils.copyProperties(user, usersVO);
         usersVO.setUserToken(uToken);
         return GraceJSONResult.ok(usersVO);
+    }
+
+    /**
+     * 用户登出
+     * @param userId
+     * @param request
+     * @return
+     */
+    @PostMapping("logout")
+    public GraceJSONResult logout(@RequestParam String userId, HttpServletRequest request) {
+        // 清除用户的分布式会话
+        redis.del(REDIS_USER_TOKEN + ":" + userId);
+        return GraceJSONResult.ok();
     }
 }
