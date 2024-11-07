@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/controller/PassportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/controller/PassportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-pojo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-pojo/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-pojo/src/main/java/com/chat/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/AuthApplicaiton.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/AuthApplicaiton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +164,7 @@
       <workItem from="1730782894073" duration="14300000" />
       <workItem from="1730851187013" duration="9778000" />
       <workItem from="1730867498997" duration="3902000" />
-      <workItem from="1730938392026" duration="4109000" />
+      <workItem from="1730938392026" duration="4734000" />
     </task>
     <servers />
   </component>
