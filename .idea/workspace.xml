@@ -6,7 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/AuthApplicaiton.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/AuthApplicaiton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/controller/PassportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/controller/PassportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/service/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/service/UsersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/service/impl/UsersServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/java/com/chat/service/impl/UsersServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-api/auth-service/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/auth-service/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/FileApplicaiton.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/FileApplicaiton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/main-service/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/main-service/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-gateway/src/main/java/com/chat/GatewayApplicaiton.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-gateway/src/main/java/com/chat/GatewayApplicaiton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,9 +155,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.AuthApplicaiton" />
-        <item itemvalue="Spring Boot.GatewayApplicaiton" />
         <item itemvalue="Spring Boot.FileApplicaiton" />
         <item itemvalue="Spring Boot.MainApplication" />
+        <item itemvalue="Spring Boot.GatewayApplicaiton" />
       </list>
     </recent_temporary>
   </component>
@@ -164,7 +172,7 @@
       <workItem from="1730782894073" duration="14300000" />
       <workItem from="1730851187013" duration="9778000" />
       <workItem from="1730867498997" duration="3902000" />
-      <workItem from="1730938392026" duration="4734000" />
+      <workItem from="1730938392026" duration="8751000" />
     </task>
     <servers />
   </component>

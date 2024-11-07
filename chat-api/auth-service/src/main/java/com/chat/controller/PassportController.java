@@ -1,15 +1,18 @@
 package com.chat.controller;
 
 import com.chat.base.BaseInfoProperties;
+import com.chat.grace.result.ResponseStatusEnum;
+import com.chat.pojo.Users;
 import com.chat.pojo.bo.RegistLoginBO;
 import com.chat.grace.result.GraceJSONResult;
+import com.chat.service.UsersService;
 import com.chat.tasks.SMSTask;
 import com.chat.utils.IPUtil;
 import com.chat.utils.MyInfo;
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("passport")
 public class PassportController extends BaseInfoProperties {
 
-    @Autowired
+    @Resource
     private SMSTask smsTask;
+
+    @Resource
+    private UsersService usersService;
 
     /**
      * 发送短信
@@ -58,16 +64,23 @@ public class PassportController extends BaseInfoProperties {
     @PostMapping("regist")
     public GraceJSONResult regist(@RequestBody RegistLoginBO registLoginBO,HttpServletRequest request) {
         String mobile = registLoginBO.getMobile();
-        String smsCode = registLoginBO.getSmsCode();
+        String code = registLoginBO.getSmsCode();
         // 1.从Redis中获得验证码进行校验判断是否匹配
-
+        String redisCode = redis.get(MOBILE_SMSCODE + ":" + mobile);
+        if (StringUtils.isBlank(redisCode) || !redisCode.equalsIgnoreCase(code)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.SMS_CODE_ERROR);
+        }
         // 2.根据mobile查询数据库，如果用户存在，则提示不能重复注册
+        Users users = usersService.queryMobileIfExist(mobile);
         // 2.1 如果查询数据库中用户为空，表示用户没有注册过，则需要进行用户信息数据的入库
-
+        if (users == null) {
+            users = usersService.createUsers(mobile);
+        } else {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.USER_ALREADY_EXIST_ERROR);
+        }
         // 3.用户注册成功后，删除Redis中的短信验证码使其失效
-
+        redis.del(MOBILE_SMSCODE + ":" + mobile);
         // 4.返回用户数据给前端
-
-        return GraceJSONResult.ok();
+        return GraceJSONResult.ok(users);
     }
 }

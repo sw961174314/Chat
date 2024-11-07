@@ -6,7 +6,7 @@ spring:
   datasource: # 数据源相关配置
     type: com.zaxxer.hikari.HikariDataSource # 数据源的类型
     driver-class-name: com.mysql.cj.jdbc.Driver # mysql的数据库驱动类名称
-    url: jdbc:mysql://127.0.0.1:4406/IM?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:4406/wechat?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
     password: 123456
     hikari:

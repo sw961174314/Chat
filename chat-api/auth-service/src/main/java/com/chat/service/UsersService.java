@@ -19,5 +19,5 @@ public interface UsersService {
      * @param mobile
      * @return
      */
-    public Users createUsers(String mobile, String nickname);
+    public Users createUsers(String mobile);
 }
