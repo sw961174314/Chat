@@ -44,7 +44,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "E:/Project/Chat/chat-api/auth-service/src/main/java/com/chat/mapper",
+    "last_opened_file_path": "E:/Project/Chat/chat-pojo/src/main/java/com/chat/pojo/vo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -59,11 +59,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\vo" />
       <recent name="E:\Project\Chat\chat-api\auth-service\src\main\java\com\chat\mapper" />
       <recent name="E:\Project\Chat\chat-api\auth-service\src\main\resources\mappers" />
       <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo" />
       <recent name="E:\Project\Chat\chat-api\auth-service\src\main\java\com\chat\service\impl" />
-      <recent name="E:\Project\Chat\chat-api\auth-service\src\main\java\com\chat\service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Project\Chat\chat-common\src\main\java\com\chat" />
@@ -80,7 +80,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AuthApplicaiton">
+  <component name="RunManager" selected="Spring Boot.GatewayApplicaiton">
     <configuration name="AuthApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="auth-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.AuthApplicaiton" />
@@ -146,9 +146,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.AuthApplicaiton" />
+        <item itemvalue="Spring Boot.GatewayApplicaiton" />
         <item itemvalue="Spring Boot.FileApplicaiton" />
         <item itemvalue="Spring Boot.MainApplication" />
-        <item itemvalue="Spring Boot.GatewayApplicaiton" />
       </list>
     </recent_temporary>
   </component>
@@ -164,7 +164,7 @@
       <workItem from="1730851187013" duration="9778000" />
       <workItem from="1730867498997" duration="3902000" />
       <workItem from="1730938392026" duration="10151000" />
-      <workItem from="1730954257747" duration="1184000" />
+      <workItem from="1730954257747" duration="3606000" />
     </task>
     <servers />
   </component>
