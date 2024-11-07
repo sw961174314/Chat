@@ -8,6 +8,7 @@ import com.chat.base.BaseInfoProperties;
 import com.chat.mapper.UsersMapper;
 import com.chat.pojo.Users;
 import com.chat.service.UsersService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,7 +31,7 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
     }
 
     @Override
-    public Users createUsers(String mobile) {
+    public Users createUsers(String mobile, String nickName) {
         Users users = new Users();
         users.setMobile(mobile);
         // 随机生成字符串
@@ -41,7 +42,7 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
         // 微信二维码
         users.setWechatNumImg(IMAGE);
         // 昵称
-        users.setNickname("新用户" +UUID.randomUUID().toString().substring(10));
+        users.setNickname(StringUtils.isBlank(nickName) ? "新用户" + UUID.randomUUID().toString().replace("-", "").substring(0, 5) : nickName);
         // 性别
         users.setSex(Sex.secret.type);
         // 头像

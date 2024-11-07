@@ -65,6 +65,7 @@ public class PassportController extends BaseInfoProperties {
     public GraceJSONResult regist(@RequestBody RegistLoginBO registLoginBO,HttpServletRequest request) {
         String mobile = registLoginBO.getMobile();
         String code = registLoginBO.getSmsCode();
+        String nickName = registLoginBO.getNickname();
         // 1.从Redis中获得验证码进行校验判断是否匹配
         String redisCode = redis.get(MOBILE_SMSCODE + ":" + mobile);
         if (StringUtils.isBlank(redisCode) || !redisCode.equalsIgnoreCase(code)) {
@@ -74,7 +75,7 @@ public class PassportController extends BaseInfoProperties {
         Users users = usersService.queryMobileIfExist(mobile);
         // 2.1 如果查询数据库中用户为空，表示用户没有注册过，则需要进行用户信息数据的入库
         if (users == null) {
-            users = usersService.createUsers(mobile);
+            users = usersService.createUsers(mobile, nickName);
         } else {
             return GraceJSONResult.errorCustom(ResponseStatusEnum.USER_ALREADY_EXIST_ERROR);
         }

@@ -17,7 +17,8 @@ public interface UsersService {
     /**
      * 创建用户信息，并且返回用户对象
      * @param mobile
+     * @param nickName
      * @return
      */
-    public Users createUsers(String mobile);
+    public Users createUsers(String mobile,String nickName);
 }
