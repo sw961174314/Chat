@@ -50,7 +50,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "settings.editor.selected.configurable": "preferences.intentionPowerPack",
-    "spring.configuration.checksum": "16391c0a0e7366b7798b5303f378823d",
+    "spring.configuration.checksum": "03cf3649aff13d50f4abe5bd5e8e42f9",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -164,6 +164,7 @@
       <workItem from="1730851187013" duration="9778000" />
       <workItem from="1730867498997" duration="3902000" />
       <workItem from="1730938392026" duration="10151000" />
+      <workItem from="1730954257747" duration="1184000" />
     </task>
     <servers />
   </component>

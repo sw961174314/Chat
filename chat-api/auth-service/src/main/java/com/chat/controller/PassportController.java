@@ -11,6 +11,7 @@ import com.chat.utils.IPUtil;
 import com.chat.utils.MyInfo;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,7 +63,7 @@ public class PassportController extends BaseInfoProperties {
      * @return
      */
     @PostMapping("regist")
-    public GraceJSONResult regist(@RequestBody RegistLoginBO registLoginBO,HttpServletRequest request) {
+    public GraceJSONResult regist(@Valid @RequestBody RegistLoginBO registLoginBO,HttpServletRequest request) {
         String mobile = registLoginBO.getMobile();
         String code = registLoginBO.getSmsCode();
         String nickName = registLoginBO.getNickname();
@@ -92,7 +93,7 @@ public class PassportController extends BaseInfoProperties {
      * @return
      */
     @PostMapping("login")
-    public GraceJSONResult login(@RequestBody RegistLoginBO registLoginBO,HttpServletRequest request) {
+    public GraceJSONResult login(@Valid @RequestBody RegistLoginBO registLoginBO, HttpServletRequest request) {
         String mobile = registLoginBO.getMobile();
         String code = registLoginBO.getSmsCode();
         // 1.从Redis中获得验证码进行校验判断是否匹配
