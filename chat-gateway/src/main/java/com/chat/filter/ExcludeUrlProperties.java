@@ -13,4 +13,6 @@ import java.util.List;
 @PropertySource("classpath:excludeUrlPath.properties")
 public class ExcludeUrlProperties {
     private List<String> urls;
+
+    private String fileStart;
 }
