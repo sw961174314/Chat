@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/base-service/src/main/java/com/chat/aop/ServiceLogAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/base-service/src/main/java/com/chat/aop/ServiceLogAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-gateway/src/main/java/com/chat/filter/IPLimitFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-gateway/src/main/java/com/chat/filter/IPLimitFilter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +69,7 @@
       <recent name="E:\Project\Chat\chat-common\src\main\java\com\chat" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.chat.filter" />
       <recent name="com.chat.controller" />
       <recent name="com.chat" />
     </key>
@@ -80,7 +81,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.MainApplication">
+  <component name="RunManager" selected="Spring Boot.GatewayApplicaiton">
     <configuration name="AuthApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="auth-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.AuthApplicaiton" />
@@ -145,8 +146,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.MainApplication" />
         <item itemvalue="Spring Boot.GatewayApplicaiton" />
+        <item itemvalue="Spring Boot.MainApplication" />
         <item itemvalue="Spring Boot.FileApplicaiton" />
         <item itemvalue="Spring Boot.AuthApplicaiton" />
       </list>
@@ -166,7 +167,7 @@
       <workItem from="1730938392026" duration="10151000" />
       <workItem from="1730954257747" duration="4722000" />
       <workItem from="1731023750390" duration="7669000" />
-      <workItem from="1731037018347" duration="653000" />
+      <workItem from="1731037018347" duration="4191000" />
     </task>
     <servers />
   </component>

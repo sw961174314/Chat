@@ -23,7 +23,7 @@ import reactor.core.publisher.Mono;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 网关过滤器
+ * IP限流过滤器
  */
 @Slf4j
 @Component
