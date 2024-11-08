@@ -18,12 +18,5 @@
             <artifactId>base-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-        <!--chat-pojo 实体类模块-->
-        <dependency>
-            <groupId>com.chat</groupId>
-            <artifactId>chat-pojo</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 </project>
