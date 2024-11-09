@@ -92,6 +92,68 @@ public class FileController {
     }
 
     /**
+     * 朋友圈背景图上传
+     * @param file
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("uploadFriendCircleBg")
+    public GraceJSONResult uploadFriendCircleBg(@RequestParam("file") MultipartFile file, String userId) throws Exception {
+        if (StringUtils.isBlank(userId)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        // 获得文件原始名称
+        String fileName = file.getOriginalFilename();
+        if (StringUtils.isBlank(fileName)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        fileName = "friendCircleBg" + "/" + userId + "/" + dealWithoutFileName(fileName);
+        // 上传图片到MinIO
+        String bgUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), fileName, file.getInputStream(),true);
+        /**
+         * 微服务远程调用更新朋友圈背景图到数据库
+         * 如果前段没有保存按钮则可以这样操作，如果有保存提交按钮，则在前端触发提交
+         */
+        GraceJSONResult jsonResult = userInfoMicroServiceFeign.uploadFriendCircleBg(userId, bgUrl);
+        Object data = jsonResult.getData();
+        String json = JsonUtils.objectToJson(data);
+        UsersVO usersVO = JsonUtils.jsonToPojo(json, UsersVO.class);
+        return GraceJSONResult.ok(usersVO);
+    }
+
+    /**
+     * 聊天背景图上传
+     * @param file
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("uploadChatBg")
+    public GraceJSONResult uploadChatBg(@RequestParam("file") MultipartFile file, String userId) throws Exception {
+        if (StringUtils.isBlank(userId)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        // 获得文件原始名称
+        String fileName = file.getOriginalFilename();
+        if (StringUtils.isBlank(fileName)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        fileName = "chatBg" + "/" + userId + "/" + dealWithoutFileName(fileName);
+        // 上传图片到MinIO
+        String bgUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), fileName, file.getInputStream(),true);
+        /**
+         * 微服务远程调用更新聊天背景图到数据库
+         * 如果前段没有保存按钮则可以这样操作，如果有保存提交按钮，则在前端触发提交
+         */
+        GraceJSONResult jsonResult = userInfoMicroServiceFeign.uploadChatBg(userId, bgUrl);
+        Object data = jsonResult.getData();
+        String json = JsonUtils.objectToJson(data);
+        UsersVO usersVO = JsonUtils.jsonToPojo(json, UsersVO.class);
+        return GraceJSONResult.ok(usersVO);
+    }
+
+    /**
      * 用户头像上传（老版本）
      * @param file
      * @param userId
@@ -118,5 +180,21 @@ public class FileController {
         // 将内存中的数据写入磁盘
         file.transferTo(newFile);
         return GraceJSONResult.ok();
+    }
+
+    private String dealWithFileName(String fileName) {
+        // 后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        // 文件名
+        String newFileName = fileName.substring(0,fileName.lastIndexOf("."));
+        String uuid = UUID.randomUUID().toString();
+        return newFileName + "-" + uuid + suffixName;
+    }
+
+    private String dealWithoutFileName(String fileName) {
+        // 后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        String uuid = UUID.randomUUID().toString();
+        return uuid + suffixName;
     }
 }

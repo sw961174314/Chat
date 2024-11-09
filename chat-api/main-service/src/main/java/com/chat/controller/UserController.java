@@ -8,6 +8,7 @@ import com.chat.pojo.vo.UsersVO;
 import com.chat.service.UsersService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,17 +48,42 @@ public class UserController extends BaseInfoProperties {
     /**
      * 用户上传头像
      * @param userId
+     * @param face
      * @return
      */
     @PostMapping("updateFace")
     public GraceJSONResult updateFace(@RequestParam("userId") String userId,@RequestParam("face") String face) {
         ModifyUserBO userBO = new ModifyUserBO();
-        userBO.setUserId(userId);
         userBO.setFace(face);
-        // 修改用户信息
-        usersService.modifyUserInfo(userBO);
-        // 返回最新用户信息
-        UsersVO usersVO = getUserInfo(userBO.getUserId(), true);
+        UsersVO usersVO = getUsersVO(userId, userBO);
+        return GraceJSONResult.ok(usersVO);
+    }
+
+    /**
+     * 用户上传朋友圈背景图
+     * @param userId
+     * @param friendCircleBg
+     * @return
+     */
+    @PostMapping("uploadFriendCircleBg")
+    public GraceJSONResult uploadFriendCircleBg(@RequestParam("userId") String userId,@RequestParam("friendCircleBg") String friendCircleBg) {
+        ModifyUserBO userBO = new ModifyUserBO();
+        userBO.setFriendCircleBg(friendCircleBg);
+        UsersVO usersVO = getUsersVO(userId, userBO);
+        return GraceJSONResult.ok(usersVO);
+    }
+
+    /**
+     * 用户上传聊天背景图上传
+     * @param userId
+     * @param chatBg
+     * @return
+     */
+    @PostMapping("uploadChatBg")
+    public GraceJSONResult uploadChatBg(@RequestParam("userId") String userId,@RequestParam("chatBg") String chatBg) {
+        ModifyUserBO userBO = new ModifyUserBO();
+        userBO.setChatBg(chatBg);
+        UsersVO usersVO = getUsersVO(userId, userBO);
         return GraceJSONResult.ok(usersVO);
     }
 
@@ -73,6 +99,16 @@ public class UserController extends BaseInfoProperties {
             redis.set(REDIS_USER_TOKEN + ":" + userId, uToken);
             usersVO.setUserToken(uToken);
         }
+        return usersVO;
+    }
+
+    @NotNull
+    private UsersVO getUsersVO(String userId, ModifyUserBO userBO) {
+        userBO.setUserId(userId);
+        // 修改用户信息
+        usersService.modifyUserInfo(userBO);
+        // 返回最新用户信息
+        UsersVO usersVO = getUserInfo(userBO.getUserId(), true);
         return usersVO;
     }
 }
