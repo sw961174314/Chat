@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  * MiniO测试类
  */
 @Slf4j
-public class MiniOTest {
+public class MinIOTest {
 
     @Test
     public void testUpload() throws Exception {

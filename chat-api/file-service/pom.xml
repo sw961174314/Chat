@@ -12,7 +12,7 @@
     <artifactId>file-service</artifactId>
 
     <dependencies>
-        <!--Minio文件存储-->
+        <!--MinIO文件存储-->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>

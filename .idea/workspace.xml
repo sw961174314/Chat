@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/chat-api/file-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/controller/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/test/java/com/chat/test/MiniOTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/test/java/com/chat/test/MinIOTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +48,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "E:/Project/Chat/chat-api/main-service/src/main/resources",
+    "last_opened_file_path": "E:/Project/Chat/chat-api/file-service/src/main/java/com/chat/config",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -60,11 +63,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Project\Chat\chat-api\file-service\src\main\java\com\chat\config" />
       <recent name="E:\Project\Chat\chat-api\main-service\src\main\resources" />
       <recent name="E:\Project\Chat\chat-api\main-service\src\main\java\com\chat" />
       <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\bo" />
       <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\vo" />
-      <recent name="E:\Project\Chat\chat-api\auth-service\src\main\java\com\chat\mapper" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Project\Chat\chat-common\src\main\java\com\chat" />
@@ -82,7 +85,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MiniOTest.testUpload">
+  <component name="RunManager" selected="Spring Boot.FileApplicaiton">
     <configuration name="MiniOTest.testUpload" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="file-service" />
       <extension name="coverage">
@@ -163,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.MiniOTest.testUpload" />
         <item itemvalue="Spring Boot.FileApplicaiton" />
-        <item itemvalue="Spring Boot.GatewayApplicaiton" />
         <item itemvalue="Spring Boot.MainApplication" />
+        <item itemvalue="Spring Boot.GatewayApplicaiton" />
         <item itemvalue="Spring Boot.AuthApplicaiton" />
+        <item itemvalue="JUnit.MiniOTest.testUpload" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +189,7 @@
       <workItem from="1730954257747" duration="4722000" />
       <workItem from="1731023750390" duration="7669000" />
       <workItem from="1731037018347" duration="9989000" />
-      <workItem from="1731109778322" duration="2638000" />
+      <workItem from="1731109778322" duration="4349000" />
     </task>
     <servers />
   </component>
