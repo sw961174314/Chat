@@ -2,6 +2,7 @@ package com.chat.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chat.enums.Sex;
+import com.chat.feign.FileMicroServiceFeign;
 import com.chat.utils.LocalDateUtils;
 import jakarta.annotation.Resource;
 import com.chat.base.BaseInfoProperties;
@@ -25,6 +26,9 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
     @Resource
     private UsersMapper usersMapper;
 
+    @Resource
+    private FileMicroServiceFeign fileMicroServiceFeign;
+
     @Override
     public Users queryMobileIfExist(String mobile) {
         return usersMapper.selectOne(new QueryWrapper<Users>().eq("mobile", mobile));
@@ -40,7 +44,7 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
         // 微信号
         users.setWechatNum(wechatNum);
         // 微信二维码
-        users.setWechatNumImg(IMAGE);
+        users.setWechatNumImg(getQrCodeUrl(wechatNum, TEMP_STRING));
         // 昵称
         users.setNickname(StringUtils.isBlank(nickName) ? "新用户" + UUID.randomUUID().toString().replace("-", "").substring(0, 5) : nickName);
         // 性别
@@ -69,5 +73,19 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
         usersMapper.insert(users);
         // 返回
         return users;
+    }
+
+    /**
+     * 通过openfeign远程调用
+     * @param wechatNumber
+     * @param userId
+     * @return
+     */
+    private String getQrCodeUrl(String wechatNumber, String userId){
+        try {
+            return fileMicroServiceFeign.generatorOrCode(wechatNumber, userId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

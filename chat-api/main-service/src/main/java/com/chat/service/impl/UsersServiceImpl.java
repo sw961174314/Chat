@@ -2,6 +2,7 @@ package com.chat.service.impl;
 
 import com.chat.base.BaseInfoProperties;
 import com.chat.exceptions.GraceException;
+import com.chat.feign.FileMicroServiceFeign;
 import com.chat.grace.result.ResponseStatusEnum;
 import com.chat.mapper.UsersMapper;
 import com.chat.pojo.Users;
@@ -23,8 +24,12 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
     @Resource
     private UsersMapper usersMapper;
 
+    @Resource
+    private FileMicroServiceFeign fileMicroServiceFeign;
+
     @Override
     public void modifyUserInfo(ModifyUserBO userBO) {
+        Users pendingUser = new Users();
         // 用户id
         String userId = userBO.getUserId();
         // 微信号
@@ -38,9 +43,12 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
             String isExist = redis.get(REDIS_USER_ALREADY_UPDATE_WECHAT_NUM + ":" + userId);
             if (StringUtils.isNotBlank(isExist)) {
                 GraceException.display(ResponseStatusEnum.WECHAT_NUM_ALREADY_MODIFIED_ERROR);
+            } else {
+                // 修改微信二维码
+                String wechatNumUrl = getQrCodeUrl(wechatNum, userId);
+                pendingUser.setWechatNumImg(wechatNumUrl);
             }
         }
-        Users pendingUser = new Users();
         pendingUser.setId(userId);
         pendingUser.setUpdatedTime(LocalDateTime.now());
         BeanUtils.copyProperties(userBO, pendingUser);
@@ -55,5 +63,19 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
     @Override
     public Users getById(String userId) {
         return usersMapper.selectById(userId);
+    }
+
+    /**
+     * 通过openfeign远程调用
+     * @param wechatNumber
+     * @param userId
+     * @return
+     */
+    private String getQrCodeUrl(String wechatNumber, String userId){
+        try {
+            return fileMicroServiceFeign.generatorOrCode(wechatNumber, userId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
