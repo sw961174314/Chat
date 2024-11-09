@@ -7,6 +7,7 @@ import com.chat.grace.result.GraceJSONResult;
 import com.chat.grace.result.ResponseStatusEnum;
 import com.chat.pojo.vo.UsersVO;
 import com.chat.utils.JsonUtils;
+import com.chat.utils.QrCodeUtils;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -59,6 +63,32 @@ public class FileController {
         String json = JsonUtils.objectToJson(data);
         UsersVO usersVO = JsonUtils.jsonToPojo(json, UsersVO.class);
         return GraceJSONResult.ok(usersVO);
+    }
+
+    /**
+     * 生成用户二维码
+     * @param wechatNumber
+     * @param userId
+     * @return
+     */
+    @PostMapping("generatorOrCode")
+    public String generatorOrCode(String wechatNumber, String userId) throws Exception {
+        // 构建map对象
+        Map<String, String> map = new HashMap<>();
+        map.put("wechatNumber", wechatNumber);
+        map.put("userId", userId);
+        // 将map转成字符串
+        String data = JsonUtils.objectToJson(map);
+        // 生成二维码
+        String qrCodePath = QrCodeUtils.generateQRCode(data);
+        // 把二维码上传到minio中
+        if (StringUtils.isNotBlank(qrCodePath)) {
+            String uuid = UUID.randomUUID().toString();
+            String objectName = "wechatNumber" + "/" + userId + "/" + uuid + ".png";
+            String imageQrCodeUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), objectName, qrCodePath, true);
+            return imageQrCodeUrl;
+        }
+        return null;
     }
 
     /**

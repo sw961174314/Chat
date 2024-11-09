@@ -16,7 +16,7 @@ import java.util.UUID;
 public class QrCodeUtils {
 
     public static String generateQRCode(String data) {
-        String filePath = "E:/Project/Chat/test/qrcode.png";
+        String filePath = "E:/Project/Chat/upload/qrcode.png";
         return QrCodeUtils.generateQRCode(data, filePath);
     }
 

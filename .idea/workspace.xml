@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/file-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/FileApplicaiton.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/FileApplicaiton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/controller/FileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-common/src/main/java/com/chat/utils/QrCodeUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-common/src/main/java/com/chat/utils/QrCodeUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +170,7 @@
       <workItem from="1730954257747" duration="4722000" />
       <workItem from="1731023750390" duration="7669000" />
       <workItem from="1731037018347" duration="9989000" />
-      <workItem from="1731109778322" duration="6909000" />
+      <workItem from="1731109778322" duration="9456000" />
     </task>
     <servers />
   </component>
