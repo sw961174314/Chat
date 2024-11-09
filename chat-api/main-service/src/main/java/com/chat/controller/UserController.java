@@ -44,6 +44,23 @@ public class UserController extends BaseInfoProperties {
         return GraceJSONResult.ok(getUserInfo(userId, false));
     }
 
+    /**
+     * 用户上传头像
+     * @param userId
+     * @return
+     */
+    @PostMapping("updateFace")
+    public GraceJSONResult updateFace(@RequestParam("userId") String userId,@RequestParam("face") String face) {
+        ModifyUserBO userBO = new ModifyUserBO();
+        userBO.setUserId(userId);
+        userBO.setFace(face);
+        // 修改用户信息
+        usersService.modifyUserInfo(userBO);
+        // 返回最新用户信息
+        UsersVO usersVO = getUserInfo(userBO.getUserId(), true);
+        return GraceJSONResult.ok(usersVO);
+    }
+
     // 获取最新用户信息
     private UsersVO getUserInfo(String userId,boolean needToken) {
         // 查询获得用户的最新信息

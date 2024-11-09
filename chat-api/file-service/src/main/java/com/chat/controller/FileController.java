@@ -2,8 +2,11 @@ package com.chat.controller;
 
 import com.chat.config.MinIOConfig;
 import com.chat.config.MinIOUtils;
+import com.chat.feign.UserInfoMicroServiceFeign;
 import com.chat.grace.result.GraceJSONResult;
 import com.chat.grace.result.ResponseStatusEnum;
+import com.chat.pojo.vo.UsersVO;
+import com.chat.utils.JsonUtils;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,9 @@ public class FileController {
 
     @Resource
     private MinIOConfig minIOConfig;
+
+    @Resource
+    private UserInfoMicroServiceFeign userInfoMicroServiceFeign;
 
     /**
      * 用户头像上传
@@ -44,7 +50,15 @@ public class FileController {
         // 上传图片到MinIO
         MinIOUtils.uploadFile(minIOConfig.getBucketName(), fileName, file.getInputStream());
         String faceUrl = minIOConfig.getFileHost() + "/" + minIOConfig.getBucketName() + "/" + fileName;
-        return GraceJSONResult.ok(faceUrl);
+        /**
+         * 微服务远程调用更新用户头像到数据库
+         * 如果前段没有保存按钮则可以这样操作，如果有保存提交按钮，则在前端触发提交
+         */
+        GraceJSONResult jsonResult = userInfoMicroServiceFeign.updateFace(userId, faceUrl);
+        Object data = jsonResult.getData();
+        String json = JsonUtils.objectToJson(data);
+        UsersVO usersVO = JsonUtils.jsonToPojo(json, UsersVO.class);
+        return GraceJSONResult.ok(usersVO);
     }
 
     /**
