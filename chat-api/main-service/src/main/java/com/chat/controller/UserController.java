@@ -2,12 +2,14 @@ package com.chat.controller;
 
 import com.chat.base.BaseInfoProperties;
 import com.chat.grace.result.GraceJSONResult;
+import com.chat.grace.result.ResponseStatusEnum;
 import com.chat.pojo.Users;
 import com.chat.pojo.bo.ModifyUserBO;
 import com.chat.pojo.vo.UsersVO;
 import com.chat.service.UsersService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -85,6 +87,29 @@ public class UserController extends BaseInfoProperties {
         userBO.setChatBg(chatBg);
         UsersVO usersVO = getUsersVO(userId, userBO);
         return GraceJSONResult.ok(usersVO);
+    }
+
+    /**
+     * 根据微信号或手机号搜索用户
+     * @param queryString
+     * @return
+     */
+    @PostMapping("queryFriend")
+    public GraceJSONResult queryFriend(String queryString,HttpServletRequest request) {
+        // 用户id
+        String myId = request.getHeader(HEADER_USER_ID);
+        if (StringUtils.isBlank(queryString)) {
+            return GraceJSONResult.error();
+        }
+        Users friend = usersService.getByWechatNumOrMobile(queryString);
+        if (friend == null) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FRIEND_NOT_EXIST_ERROR);
+        }
+        // 不能添加自己为好友
+        if (friend.getId().equals(myId)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.CAN_NOT_ADD_SELF_FRIEND_ERROR);
+        }
+        return GraceJSONResult.ok(friend);
     }
 
     // 获取最新用户信息

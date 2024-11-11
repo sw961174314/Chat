@@ -1,5 +1,6 @@
 package com.chat.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chat.base.BaseInfoProperties;
 import com.chat.exceptions.GraceException;
 import com.chat.feign.FileMicroServiceFeign;
@@ -63,6 +64,13 @@ public class UsersServiceImpl extends BaseInfoProperties implements UsersService
     @Override
     public Users getById(String userId) {
         return usersMapper.selectById(userId);
+    }
+
+    @Override
+    public Users getByWechatNumOrMobile(String queryString) {
+        QueryWrapper queryWrapper = new QueryWrapper<Users>().eq("wechat_num", queryString).or().eq("mobile", queryString);
+        Users friend = usersMapper.selectOne(queryWrapper);
+        return friend;
     }
 
     /**

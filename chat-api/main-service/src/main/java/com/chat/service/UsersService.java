@@ -21,4 +21,11 @@ public interface UsersService {
      * @return
      */
     public Users getById(String userId);
+
+    /**
+     * 根据微信号或手机号搜索用户
+     * @param queryString
+     * @return
+     */
+    public Users getByWechatNumOrMobile(String queryString);
 }
