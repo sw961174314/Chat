@@ -109,4 +109,20 @@ public class FriendshipController extends BaseInfoProperties {
         friendshipService.updateBlackList(myId, friendId, YesOrNo.NO);
         return GraceJSONResult.ok();
     }
+
+    /**
+     * 删除好友
+     * @param friendId
+     * @param request
+     * @return
+     */
+    @PostMapping("delete")
+    public GraceJSONResult delete(String friendId,HttpServletRequest request) {
+        String myId = request.getHeader(HEADER_USER_ID);
+        if (StringUtils.isBlank(friendId)) {
+            return GraceJSONResult.error();
+        }
+        friendshipService.delete(myId, friendId);
+        return GraceJSONResult.ok();
+    }
 }

@@ -64,4 +64,15 @@ public class FriendShipServiceImpl extends BaseInfoProperties implements Friends
         friendship.setUpdatedTime(LocalDateTime.now());
         friendshipMapper.update(friendship, updateWrapper);
     }
+
+    @Override
+    @Transactional
+    public void delete(String myId, String friendId) {
+        QueryWrapper<Friendship> deleteWrapper1 = new QueryWrapper<>();
+        deleteWrapper1.eq("my_id", myId).eq("friend_id", friendId);
+        friendshipMapper.delete(deleteWrapper1);
+        QueryWrapper<Friendship> deleteWrapper2 = new QueryWrapper<>();
+        deleteWrapper2.eq("my_id", friendId).eq("friend_id", myId);
+        friendshipMapper.delete(deleteWrapper2);
+    }
 }

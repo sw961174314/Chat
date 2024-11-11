@@ -40,4 +40,11 @@ public interface FriendshipService {
      * @param friendId
      */
     public void updateBlackList(String myId, String friendId,YesOrNo yesOrNo);
+
+    /**
+     * 删除好友(删除好友之间的两个记录)
+     * @param myId
+     * @param friendId
+     */
+    public void delete(String myId, String friendId);
 }
