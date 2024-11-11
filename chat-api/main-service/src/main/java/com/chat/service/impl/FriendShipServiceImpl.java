@@ -11,6 +11,7 @@ import com.chat.service.FriendshipService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,5 +39,15 @@ public class FriendShipServiceImpl extends BaseInfoProperties implements Friends
         Map<String, Object> map = new HashMap<>();
         map.put("myId", myId);
         return friendshipMapperCustom.queryMyFriends(map);
+    }
+
+    @Override
+    public void updateFriendRemark(String myId, String friendId, String friendRemark) {
+        QueryWrapper<Friendship> updateWrapper = new QueryWrapper<>();
+        updateWrapper.eq("my_id", myId).eq("friend_id", friendId);
+        Friendship friendship = new Friendship();
+        friendship.setFriendRemark(friendRemark);
+        friendship.setUpdatedTime(LocalDateTime.now());
+        friendshipMapper.update(friendship, updateWrapper);
     }
 }

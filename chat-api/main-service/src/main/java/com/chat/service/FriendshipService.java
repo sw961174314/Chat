@@ -24,4 +24,12 @@ public interface FriendshipService {
      * @return
      */
     public List<ContactsVO> queryMyFriends(String myId);
+
+    /**
+     * 修改好友备注
+     * @param myId
+     * @param friendId
+     * @param friendRemark
+     */
+    public void updateFriendRemark(String myId, String friendId, String friendRemark);
 }
