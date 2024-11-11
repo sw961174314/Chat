@@ -20,11 +20,11 @@ public interface FriendshipService {
     public Friendship getFriendship(String myId,String friendId);
 
     /**
-     * 查询通讯录
+     * 查询通讯录/黑名单
      * @param myId
      * @return
      */
-    public List<ContactsVO> queryMyFriends(String myId);
+    public List<ContactsVO> queryMyFriends(String myId,boolean needBlack);
 
     /**
      * 修改好友备注
