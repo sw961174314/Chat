@@ -1,6 +1,7 @@
 package com.chat.controller;
 
 import com.chat.base.BaseInfoProperties;
+import com.chat.enums.YesOrNo;
 import com.chat.grace.result.GraceJSONResult;
 import com.chat.pojo.Friendship;
 import com.chat.pojo.vo.ContactsVO;
@@ -62,6 +63,38 @@ public class FriendshipController extends BaseInfoProperties {
             return GraceJSONResult.error();
         }
         friendshipService.updateFriendRemark(myId, friendId, friendRemark);
+        return GraceJSONResult.ok();
+    }
+
+    /**
+     * 将好友移入黑名单
+     * @param friendId
+     * @param request
+     * @return
+     */
+    @PostMapping("tobeBlack")
+    public GraceJSONResult tobeBlack(String friendId,HttpServletRequest request) {
+        String myId = request.getHeader(HEADER_USER_ID);
+        if (StringUtils.isBlank(friendId)) {
+            return GraceJSONResult.error();
+        }
+        friendshipService.updateBlackList(myId, friendId, YesOrNo.NO);
+        return GraceJSONResult.ok();
+    }
+
+    /**
+     * 将好友移出黑名单
+     * @param friendId
+     * @param request
+     * @return
+     */
+    @PostMapping("moveOutBlack")
+    public GraceJSONResult moveOutBlack(String friendId,HttpServletRequest request) {
+        String myId = request.getHeader(HEADER_USER_ID);
+        if (StringUtils.isBlank(friendId)) {
+            return GraceJSONResult.error();
+        }
+        friendshipService.updateBlackList(myId, friendId, YesOrNo.NO);
         return GraceJSONResult.ok();
     }
 }

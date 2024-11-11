@@ -1,5 +1,6 @@
 package com.chat.service;
 
+import com.chat.enums.YesOrNo;
 import com.chat.pojo.Friendship;
 import com.chat.pojo.vo.ContactsVO;
 
@@ -32,4 +33,11 @@ public interface FriendshipService {
      * @param friendRemark
      */
     public void updateFriendRemark(String myId, String friendId, String friendRemark);
+
+    /**
+     * 将好友移入黑名单或移出黑名单
+     * @param myId
+     * @param friendId
+     */
+    public void updateBlackList(String myId, String friendId,YesOrNo yesOrNo);
 }

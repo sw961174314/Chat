@@ -2,6 +2,7 @@ package com.chat.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chat.base.BaseInfoProperties;
+import com.chat.enums.YesOrNo;
 import com.chat.mapper.FriendshipMapper;
 import com.chat.mapper.FriendshipMapperCustom;
 import com.chat.pojo.FriendRequest;
@@ -10,6 +11,7 @@ import com.chat.pojo.vo.ContactsVO;
 import com.chat.service.FriendshipService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -47,6 +49,17 @@ public class FriendShipServiceImpl extends BaseInfoProperties implements Friends
         updateWrapper.eq("my_id", myId).eq("friend_id", friendId);
         Friendship friendship = new Friendship();
         friendship.setFriendRemark(friendRemark);
+        friendship.setUpdatedTime(LocalDateTime.now());
+        friendshipMapper.update(friendship, updateWrapper);
+    }
+
+    @Override
+    @Transactional
+    public void updateBlackList(String myId, String friendId, YesOrNo yesOrNo) {
+        QueryWrapper<Friendship> updateWrapper = new QueryWrapper<>();
+        updateWrapper.eq("my_id", myId).eq("friend_id", friendId);
+        Friendship friendship = new Friendship();
+        friendship.setIsBlack(yesOrNo.type);
         friendship.setUpdatedTime(LocalDateTime.now());
         friendshipMapper.update(friendship, updateWrapper);
     }
