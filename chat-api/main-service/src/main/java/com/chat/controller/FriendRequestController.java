@@ -44,4 +44,17 @@ public class FriendRequestController extends BaseInfoProperties {
         PagedGridResult result = friendRequestService.queryNewFriendList(userId, page, pageSize);
         return GraceJSONResult.ok(result);
     }
+
+
+    /**
+     * 通过好友请求
+     * @param friendRequestId
+     * @param friendRemark
+     * @return
+     */
+    @PostMapping("pass")
+    public GraceJSONResult pass(String friendRequestId,String friendRemark) {
+        friendRequestService.passNewFriend(friendRequestId, friendRemark);
+        return GraceJSONResult.ok();
+    }
 }
