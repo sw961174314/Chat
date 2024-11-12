@@ -2,6 +2,7 @@ package com.chat.service.impl;
 
 import com.chat.base.BaseInfoProperties;
 import com.chat.mapper.CommentMapper;
+import com.chat.mapper.CommentMapperCustom;
 import com.chat.pojo.Comment;
 import com.chat.pojo.Users;
 import com.chat.pojo.bo.CommentBO;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 朋友圈评论表 服务实现类
@@ -26,6 +30,9 @@ public class CommentServiceImpl extends BaseInfoProperties implements CommentSer
 
     @Resource
     private CommentMapper commentMapper;
+
+    @Resource
+    private CommentMapperCustom commentMapperCustom;
 
     @Override
     @Transactional
@@ -44,5 +51,12 @@ public class CommentServiceImpl extends BaseInfoProperties implements CommentSer
         commentVO.setCommentUserFace(commentUser.getFace());
         commentVO.setCommentId(pendingComment.getId());
         return commentVO;
+    }
+
+    @Override
+    public List<CommentVO> queryAll(String friendCircleId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("friendCircleId", friendCircleId);
+        return commentMapperCustom.queryFriendCircleComments(map);
     }
 }

@@ -4,7 +4,9 @@ import com.chat.base.BaseInfoProperties;
 import com.chat.grace.result.GraceJSONResult;
 import com.chat.pojo.FriendCircleLiked;
 import com.chat.pojo.bo.FriendCircleBO;
+import com.chat.pojo.vo.CommentVO;
 import com.chat.pojo.vo.FriendCircleVO;
+import com.chat.service.CommentService;
 import com.chat.service.FriendCircleService;
 import com.chat.utils.PagedGridResult;
 import jakarta.annotation.Resource;
@@ -21,6 +23,9 @@ public class FriendCircleController extends BaseInfoProperties {
 
     @Resource
     private FriendCircleService friendCircleService;
+
+    @Resource
+    private CommentService commentService;
 
     /**
      * 发布朋友圈图文数据并保存
@@ -58,6 +63,8 @@ public class FriendCircleController extends BaseInfoProperties {
             f.setLikedFriends(likedList);
             boolean res = friendCircleService.doILike(friendCircleId, userId);
             f.setDoILike(res);
+            List<CommentVO> commentList = commentService.queryAll(friendCircleId);
+            f.setCommentList(commentList);
         }
         return GraceJSONResult.ok(result);
     }

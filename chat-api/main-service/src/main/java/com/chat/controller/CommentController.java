@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("comment")
 public class CommentController extends BaseInfoProperties {
@@ -30,5 +32,16 @@ public class CommentController extends BaseInfoProperties {
     public GraceJSONResult create(@RequestBody CommentBO friendCircleBO, HttpServletRequest request) {
         CommentVO comment = commentService.createComment(friendCircleBO);
         return GraceJSONResult.ok(comment);
+    }
+
+    /**
+     * 查询朋友圈的评论列表
+     * @param friendCircleId
+     * @return
+     */
+    @PostMapping("query")
+    public GraceJSONResult query(String friendCircleId) {
+        List<CommentVO> list = commentService.queryAll(friendCircleId);
+        return GraceJSONResult.ok(list);
     }
 }
