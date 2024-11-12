@@ -46,4 +46,12 @@ public interface FriendCircleService {
      * @return
      */
     public List<FriendCircleLiked> queryLikedFriends(String friendCircleId);
+
+    /**
+     * 判断用户是否点赞过朋友圈
+     * @param friendCircleId
+     * @param userId
+     * @return
+     */
+    public boolean doILike(String friendCircleId, String userId);
 }

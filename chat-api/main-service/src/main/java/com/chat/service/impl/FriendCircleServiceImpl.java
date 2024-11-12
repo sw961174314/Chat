@@ -15,6 +15,7 @@ import com.chat.service.FriendCircleService;
 import com.chat.service.UsersService;
 import com.chat.utils.PagedGridResult;
 import jakarta.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,6 +99,12 @@ public class FriendCircleServiceImpl extends BaseInfoProperties implements Frien
     public List<FriendCircleLiked> queryLikedFriends(String friendCircleId) {
         QueryWrapper queryWrapper = new QueryWrapper<FriendCircleLiked>().eq("friend_circle_id", friendCircleId);
         return friendCircleLikedMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public boolean doILike(String friendCircleId, String userId) {
+        String isExist = redis.get(REDIS_DOES_USER_LIKE_FRIEND_CIRCLE + ":" + friendCircleId + ":" + userId);
+        return StringUtils.isNotBlank(isExist);
     }
 
     /**
