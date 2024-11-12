@@ -93,4 +93,16 @@ public class FriendCircleController extends BaseInfoProperties {
         friendCircleService.unlike(friendCircleId, userId);
         return GraceJSONResult.ok();
     }
+
+    /**
+     * 获取好友点赞列表
+     * @param friendCircleId
+     * @param request
+     * @return
+     */
+    @PostMapping("likedFriends")
+    public GraceJSONResult likedFriends(String friendCircleId,HttpServletRequest request) {
+        List<FriendCircleLiked> likedList = friendCircleService.queryLikedFriends(friendCircleId);
+        return GraceJSONResult.ok(likedList);
+    }
 }
