@@ -154,6 +154,29 @@ public class FileController {
     }
 
     /**
+     * 朋友圈图片上传
+     * @param file
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("uploadFriendCircleImage")
+    public GraceJSONResult uploadFriendCircleImage(@RequestParam("file") MultipartFile file, String userId) throws Exception {
+        if (StringUtils.isBlank(userId)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        // 获得文件原始名称
+        String fileName = file.getOriginalFilename();
+        if (StringUtils.isBlank(fileName)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        fileName = "friendCircleImage" + "/" + userId + "/" + dealWithoutFileName(fileName);
+        // 上传图片到MinIO
+        String imageUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), fileName, file.getInputStream(),true);
+        return GraceJSONResult.ok(imageUrl);
+    }
+
+    /**
      * 用户头像上传（老版本）
      * @param file
      * @param userId
