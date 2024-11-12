@@ -49,4 +49,36 @@ public class FriendCircleController extends BaseInfoProperties {
         PagedGridResult result = friendCircleService.queryList(userId, page, pageSize);
         return GraceJSONResult.ok(result);
     }
+
+    /**
+     * 朋友圈点赞
+     * @param friendCircleId
+     * @param request
+     * @return
+     */
+    @PostMapping("like")
+    public GraceJSONResult like(String friendCircleId,HttpServletRequest request) {
+        String userId = request.getHeader(HEADER_USER_ID);
+        if (StringUtils.isBlank(userId)) {
+            return GraceJSONResult.error();
+        }
+        friendCircleService.like(friendCircleId, userId);
+        return GraceJSONResult.ok();
+    }
+
+    /**
+     * 朋友圈取消点赞
+     * @param friendCircleId
+     * @param request
+     * @return
+     */
+    @PostMapping("unlike")
+    public GraceJSONResult unlike(String friendCircleId,HttpServletRequest request) {
+        String userId = request.getHeader(HEADER_USER_ID);
+        if (StringUtils.isBlank(userId)) {
+            return GraceJSONResult.error();
+        }
+        friendCircleService.unlike(friendCircleId, userId);
+        return GraceJSONResult.ok();
+    }
 }
