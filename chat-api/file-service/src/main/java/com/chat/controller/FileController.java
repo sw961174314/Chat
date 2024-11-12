@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -174,6 +175,20 @@ public class FileController {
         // 上传图片到MinIO
         String imageUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), fileName, file.getInputStream(),true);
         return GraceJSONResult.ok(imageUrl);
+    }
+
+    /**
+     * 朋友圈图片删除
+     * @param imageUrl
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("deleteFriendCircleImage")
+    public GraceJSONResult deleteFriendCircleImage(String imageUrl) throws Exception {
+        String imageName = imageUrl.substring((minIOConfig.getEndpoint() + "/" + minIOConfig.getBucketName() + "/").length()-1);
+        // 批量删除图片
+        MinIOUtils.removeFile(minIOConfig.getBucketName(), imageName);
+        return GraceJSONResult.ok();
     }
 
     /**

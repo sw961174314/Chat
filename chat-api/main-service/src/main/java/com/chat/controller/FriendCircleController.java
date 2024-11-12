@@ -112,4 +112,17 @@ public class FriendCircleController extends BaseInfoProperties {
         List<FriendCircleLiked> likedList = friendCircleService.queryLikedFriends(friendCircleId);
         return GraceJSONResult.ok(likedList);
     }
+
+    /**
+     * 删除朋友圈数据(图文+评论+点赞)
+     * @param friendCircleId
+     * @param request
+     * @return
+     */
+    @PostMapping("delete")
+    public GraceJSONResult delete(String friendCircleId, HttpServletRequest request) throws Exception {
+        String userId = request.getHeader(HEADER_USER_ID);
+        friendCircleService.delete(friendCircleId, userId);
+        return GraceJSONResult.ok();
+    }
 }

@@ -54,4 +54,11 @@ public interface FriendCircleService {
      * @return
      */
     public boolean doILike(String friendCircleId, String userId);
+
+    /**
+     * 删除朋友圈数据(图文+评论+点赞)
+     * @param friendCircleId
+     * @param userId
+     */
+    public void delete(String friendCircleId, String userId) throws Exception;
 }

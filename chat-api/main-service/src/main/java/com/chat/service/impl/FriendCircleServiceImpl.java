@@ -3,6 +3,8 @@ package com.chat.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.chat.base.BaseInfoProperties;
+import com.chat.feign.FileMicroServiceFeign;
+import com.chat.mapper.CommentMapper;
 import com.chat.mapper.FriendCircleLikedMapper;
 import com.chat.mapper.FriendCircleMapper;
 import com.chat.mapper.FriendCircleMapperCustom;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +45,12 @@ public class FriendCircleServiceImpl extends BaseInfoProperties implements Frien
 
     @Resource
     private FriendCircleLikedMapper friendCircleLikedMapper;
+
+    @Resource
+    private CommentMapper commentMapper;
+
+    @Resource
+    private FileMicroServiceFeign fileMicroServiceFeign;
 
     @Override
     @Transactional
@@ -105,6 +114,29 @@ public class FriendCircleServiceImpl extends BaseInfoProperties implements Frien
     public boolean doILike(String friendCircleId, String userId) {
         String isExist = redis.get(REDIS_DOES_USER_LIKE_FRIEND_CIRCLE + ":" + friendCircleId + ":" + userId);
         return StringUtils.isNotBlank(isExist);
+    }
+
+    @Override
+    @Transactional
+    public void delete(String friendCircleId, String userId) throws Exception {
+        // 点赞数据
+        QueryWrapper deleteLikedWrapper = new QueryWrapper<FriendCircleLiked>().eq("friend_circle_id", friendCircleId);
+        friendCircleLikedMapper.delete(deleteLikedWrapper);
+        // 评论数据
+        QueryWrapper deleteCommentWrapper = new QueryWrapper<>().eq("friend_circle_id", friendCircleId);
+        commentMapper.delete(deleteCommentWrapper);
+        // 朋友圈数据
+        FriendCircle friendCircle = friendCircleMapper.selectById(friendCircleId);
+        String[] imageUrls = friendCircle.getImages().split(",");
+        for (String imageUrl : imageUrls) {
+            if (StringUtils.isBlank(imageUrl)) {
+                continue;
+            }
+            fileMicroServiceFeign.deleteFriendCircleImage(imageUrl);
+        }
+        // 朋友圈数据
+        QueryWrapper deleteCircleWrapper = new QueryWrapper<FriendCircle>().eq("id", friendCircleId).eq("user_id", userId);
+        friendCircleMapper.delete(deleteCircleWrapper);
     }
 
     /**
