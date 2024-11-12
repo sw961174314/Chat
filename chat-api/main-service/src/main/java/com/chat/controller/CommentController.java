@@ -8,6 +8,7 @@ import com.chat.service.CommentService;
 import com.chat.service.FriendCircleService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +44,21 @@ public class CommentController extends BaseInfoProperties {
     public GraceJSONResult query(String friendCircleId) {
         List<CommentVO> list = commentService.queryAll(friendCircleId);
         return GraceJSONResult.ok(list);
+    }
+
+    /**
+     * 删除朋友圈评论
+     * @param commentUserId
+     * @param commentId
+     * @param friendCircleId
+     * @return
+     */
+    @PostMapping("delete")
+    public GraceJSONResult delete(String commentUserId, String commentId, String friendCircleId) {
+        if (StringUtils.isBlank(commentUserId) || StringUtils.isBlank(commentId) || StringUtils.isBlank(friendCircleId)) {
+            return GraceJSONResult.error();
+        }
+        commentService.deleteComment(commentUserId, commentId, friendCircleId);
+        return GraceJSONResult.ok();
     }
 }

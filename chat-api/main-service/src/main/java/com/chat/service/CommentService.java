@@ -22,4 +22,12 @@ public interface CommentService {
      * @return
      */
     public List<CommentVO> queryAll(String friendCircleId);
+
+    /**
+     * 删除朋友圈评论
+     * @param commentUserId
+     * @param commentId
+     * @param friendCircleId
+     */
+    public void deleteComment(String commentUserId, String commentId, String friendCircleId);
 }

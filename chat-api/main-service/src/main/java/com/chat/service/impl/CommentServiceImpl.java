@@ -1,5 +1,6 @@
 package com.chat.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chat.base.BaseInfoProperties;
 import com.chat.mapper.CommentMapper;
 import com.chat.mapper.CommentMapperCustom;
@@ -58,5 +59,11 @@ public class CommentServiceImpl extends BaseInfoProperties implements CommentSer
         Map<String, Object> map = new HashMap<>();
         map.put("friendCircleId", friendCircleId);
         return commentMapperCustom.queryFriendCircleComments(map);
+    }
+
+    @Override
+    public void deleteComment(String commentUserId, String commentId, String friendCircleId) {
+        QueryWrapper deleteWrapper = new QueryWrapper<>().eq("comment_user_id", commentUserId).eq("id", commentId).eq("friend_circle_id", friendCircleId);
+        commentMapper.delete(deleteWrapper);
     }
 }
