@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/controller/FileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/controller/FriendCircleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/controller/FriendCircleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/service/FriendCircleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/service/FriendCircleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/service/impl/FriendCircleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/service/impl/FriendCircleServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +47,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "E:/Project/Chat/chat-api/main-service/src/main/java/com/chat/mapper",
+    "last_opened_file_path": "E:/Project/Chat/chat-pojo/src/main/java/com/chat/pojo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,11 +62,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Project\Chat\chat-api\main-service\src\main\java\com\chat\mapper" />
-      <recent name="E:\Project\Chat\chat-api\main-service\src\main\resources\mappers" />
-      <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\vo" />
-      <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\bo" />
       <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo" />
+      <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\vo" />
+      <recent name="E:\Project\Chat\chat-api\main-service\src\main\resources\mappers" />
+      <recent name="E:\Project\Chat\chat-api\main-service\src\main\java\com\chat\mapper" />
+      <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\bo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Project\Chat\chat-common\src\main\java\com\chat" />
@@ -85,7 +86,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.FileApplicaiton">
+  <component name="RunManager" selected="Spring Boot.MainApplication">
     <configuration name="AuthApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="auth-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.AuthApplicaiton" />
@@ -150,8 +151,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.FileApplicaiton" />
         <item itemvalue="Spring Boot.MainApplication" />
+        <item itemvalue="Spring Boot.FileApplicaiton" />
         <item itemvalue="Spring Boot.GatewayApplicaiton" />
         <item itemvalue="Spring Boot.AuthApplicaiton" />
       </list>
@@ -175,7 +176,7 @@
       <workItem from="1731109778322" duration="14004000" />
       <workItem from="1731284600168" duration="10423000" />
       <workItem from="1731304994819" duration="5566000" />
-      <workItem from="1731366686887" duration="3073000" />
+      <workItem from="1731366686887" duration="4117000" />
     </task>
     <servers />
   </component>

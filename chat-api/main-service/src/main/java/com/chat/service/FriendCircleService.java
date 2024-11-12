@@ -1,6 +1,7 @@
 package com.chat.service;
 
 import com.chat.pojo.bo.FriendCircleBO;
+import com.chat.utils.PagedGridResult;
 
 /**
  * 朋友圈表 服务类
@@ -12,4 +13,13 @@ public interface FriendCircleService {
      * @param friendCircleBO
      */
     public void publish(FriendCircleBO friendCircleBO);
+
+    /**
+     * 朋友圈图文查询
+     * @param userId
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public PagedGridResult queryList(String userId, Integer page, Integer pageSize);
 }
