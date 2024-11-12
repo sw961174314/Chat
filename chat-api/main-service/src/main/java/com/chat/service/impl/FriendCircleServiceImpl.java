@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,12 +86,18 @@ public class FriendCircleServiceImpl extends BaseInfoProperties implements Frien
     @Transactional
     public void unlike(String friendCircleId, String userId) {
         // 从数据库中删除对应的点赞消息
-        QueryWrapper deleteWrapper = new QueryWrapper<FriendCircleLiked>().eq("friend_circle_id", friendCircleId).eq("user_id", userId);
+        QueryWrapper deleteWrapper = new QueryWrapper<FriendCircleLiked>().eq("friend_circle_id", friendCircleId).eq("belong_user_id", userId);
         friendCircleLikedMapper.delete(deleteWrapper);
         // 取消点赞过后，朋友圈的对应点赞数减1
         redis.decrement(REDIS_FRIEND_CIRCLE_LIKED_COUNTS + ":" + friendCircleId, 1);
         // 标记哪个用户点赞过该朋友圈
         redis.del(REDIS_DOES_USER_LIKE_FRIEND_CIRCLE + ":" + friendCircleId + ":" + userId);
+    }
+
+    @Override
+    public List<FriendCircleLiked> queryLikedFriends(String friendCircleId) {
+        QueryWrapper queryWrapper = new QueryWrapper<FriendCircleLiked>().eq("friend_circle_id", friendCircleId);
+        return friendCircleLikedMapper.selectList(queryWrapper);
     }
 
     /**

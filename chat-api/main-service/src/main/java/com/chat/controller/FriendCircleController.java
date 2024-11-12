@@ -2,7 +2,9 @@ package com.chat.controller;
 
 import com.chat.base.BaseInfoProperties;
 import com.chat.grace.result.GraceJSONResult;
+import com.chat.pojo.FriendCircleLiked;
 import com.chat.pojo.bo.FriendCircleBO;
+import com.chat.pojo.vo.FriendCircleVO;
 import com.chat.service.FriendCircleService;
 import com.chat.utils.PagedGridResult;
 import jakarta.annotation.Resource;
@@ -11,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("friendCircle")
@@ -47,6 +50,13 @@ public class FriendCircleController extends BaseInfoProperties {
             return GraceJSONResult.error();
         }
         PagedGridResult result = friendCircleService.queryList(userId, page, pageSize);
+        // 增加朋友圈点赞数据
+        List<FriendCircleVO> list = (List<FriendCircleVO>) result.getRows();
+        for (FriendCircleVO f : list) {
+            String friendCircleId = f.getFriendCircleId();
+            List<FriendCircleLiked> likedList = friendCircleService.queryLikedFriends(friendCircleId);
+            f.setLikedFriends(likedList);
+        }
         return GraceJSONResult.ok(result);
     }
 
