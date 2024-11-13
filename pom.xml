@@ -21,6 +21,7 @@
         <module>chat-pojo</module>
         <module>chat-api</module>
         <module>chat-gateway</module>
+        <module>chat-api/chat-service</module>
     </modules>
 
     <properties>
