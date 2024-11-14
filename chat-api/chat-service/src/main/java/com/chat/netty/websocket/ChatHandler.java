@@ -80,6 +80,10 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         Channel currentChannel = ctx.channel();
         String currentChannelIdLong = currentChannel.id().asLongText();
         System.out.println("客户端关闭连接，channel对应的长id为：" + currentChannelIdLong);
+        // 获取用户id
+        String userId = UserChannelSession.getUserIdByChannelId(currentChannelIdLong);
+        // 移除多余的会话
+        UserChannelSession.removeUselessChannels(userId, currentChannelIdLong);
         // 客户端关闭连接
         clients.remove(currentChannel);
     }
@@ -95,6 +99,10 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         Channel currentChannel = ctx.channel();
         String currentChannelIdLong = currentChannel.id().asLongText();
         System.out.println("发生异常捕获，channel对应的长id为：" + currentChannelIdLong);
+        // 获取用户id
+        String userId = UserChannelSession.getUserIdByChannelId(currentChannelIdLong);
+        // 移除多余的会话
+        UserChannelSession.removeUselessChannels(userId, currentChannelIdLong);
         // 发生异常，关闭连接（关闭channel）
         ctx.channel().close();
         // 随后从ChannelGroup中移除对应的channel

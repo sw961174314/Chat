@@ -39,6 +39,23 @@ public class UserChannelSession {
         return multiSession.get(userId);
     }
 
+    public static void removeUselessChannels(String userId, String channelId) {
+        List<Channel> channels = getMultiChannels(userId);
+        if (channels == null || channels.size() == 0) {
+            return;
+        }
+        for (int i = 0; i < channels.size(); i++) {
+            Channel tempChannel = channels.get(i);
+            if (tempChannel.id().asLongText().equals(channelId)) {
+                channels.remove(i);
+            }
+        }
+        multiSession.put(userId, channels);
+    }
+
+    /**
+     * 输出userId和channel的关联数据
+     */
     public static void outputMulti() {
         System.out.println("========");
         for (Map.Entry<String, List<Channel>> entry : multiSession.entrySet()) {
