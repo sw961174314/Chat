@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/chat-api/file-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/controller/FileController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +25,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2oPtACJkuOUSlgEjcAF8g25kFlm" />
   <component name="ProjectLevelVcsManager">
@@ -45,7 +46,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "E:/Project/Chat/chat-pojo/src/main/java/com/chat/pojo/netty",
+    "last_opened_file_path": "E:/Project/Chat/chat-pojo/src/main/java/com/chat/pojo/vo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,11 +62,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\vo" />
+      <recent name="E:\Project\Chat\chat-api\chat-service\src\main\java\com\chat\netty\util" />
       <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\netty" />
       <recent name="E:\Project\Chat\chat-api\chat-service\src\main\java\com\chat\netty\websocket" />
       <recent name="E:\Project\Chat\chat-api\main-service\src\main\java\com\chat\mapper" />
-      <recent name="E:\Project\Chat\chat-api\main-service\src\main\resources\mappers" />
-      <recent name="E:\Project\Chat\chat-pojo\src\main\java\com\chat\pojo\bo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Project\Chat\chat-common\src\main\java\com\chat" />
@@ -114,6 +115,7 @@
     </configuration>
     <configuration name="FileApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="file-service" />
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.FileApplicaiton" />
       <extension name="coverage">
         <pattern>
@@ -151,6 +153,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="lua.app" factoryName="Lua Application">
       <option name="program" value="lua.exe" />
       <option name="file" value="" />
@@ -165,9 +173,9 @@
       <list>
         <item itemvalue="Application.ChatApplication" />
         <item itemvalue="Spring Boot.FileApplicaiton" />
+        <item itemvalue="Spring Boot.GatewayApplicaiton" />
         <item itemvalue="Spring Boot.AuthApplicaiton" />
         <item itemvalue="Spring Boot.MainApplication" />
-        <item itemvalue="Spring Boot.GatewayApplicaiton" />
       </list>
     </recent_temporary>
   </component>
@@ -193,7 +201,7 @@
       <workItem from="1731385293334" duration="13586000" />
       <workItem from="1731456139023" duration="992000" />
       <workItem from="1731469044476" duration="5042000" />
-      <workItem from="1731543252448" duration="14813000" />
+      <workItem from="1731543252448" duration="17157000" />
     </task>
     <servers />
   </component>

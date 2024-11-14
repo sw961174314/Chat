@@ -6,6 +6,8 @@ import com.chat.feign.UserInfoMicroServiceFeign;
 import com.chat.grace.result.GraceJSONResult;
 import com.chat.grace.result.ResponseStatusEnum;
 import com.chat.pojo.vo.UsersVO;
+import com.chat.pojo.vo.VideoMsgVO;
+import com.chat.util.JcodecVideoUtil;
 import com.chat.utils.JsonUtils;
 import com.chat.utils.QrCodeUtils;
 import jakarta.annotation.Resource;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -214,6 +217,47 @@ public class FileController {
         // 上传图片到MinIO
         String imageUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), fileName, file.getInputStream(),true);
         return GraceJSONResult.ok(imageUrl);
+    }
+
+    /**
+     * 聊天视频上传
+     * @param file
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("uploadChatVideo")
+    public GraceJSONResult uploadChatVideo(@RequestParam("file") MultipartFile file, String userId) throws Exception {
+        if (StringUtils.isBlank(userId)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        // 获得文件原始名称
+        String fileName = file.getOriginalFilename();
+        if (StringUtils.isBlank(fileName)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        fileName = "chat" + "/" + userId + "/" + "video" + "/" + dealWithoutFileName(fileName);
+        // 上传视频到MinIO
+        String videoUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), fileName, file.getInputStream(),true);
+        // 帧，封面获取=视频截帧
+        // 视频封面名称
+        String coverName = UUID.randomUUID().toString() + ".jpg";
+        // 定义封面临时存储路径
+        String coverPath = new File("").getCanonicalPath() + "/upload/video/" + coverName;
+        File coverFile = new File(coverPath);
+        if (!coverFile.getParentFile().exists()) {
+            coverFile.mkdirs();
+        }
+        // 从视频中截取封面
+        JcodecVideoUtil.fetchFrame(file, coverFile);
+        // 上传封面到MinIO
+        coverName = "chat" + "/" + userId + "/" + "video/cover/" + dealWithoutFileName(coverName);
+        String coverUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), coverName, new FileInputStream(coverFile), true);
+        // 视频封装类
+        VideoMsgVO videoMsgVO = new VideoMsgVO();
+        videoMsgVO.setVideoPath(videoUrl);
+        videoMsgVO.setCover(coverUrl);
+        return GraceJSONResult.ok(videoMsgVO);
     }
 
     /**
