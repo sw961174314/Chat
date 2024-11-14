@@ -57,7 +57,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             UserChannelSession.putMultiChannels(senderId, currentChannel);
             UserChannelSession.putUserChannelIdRelation(currentChannelIdLong, senderId);
         } else if (msgType == MsgTypeEnum.WORDS.type) {
-            // 发送消息
+            // 接收者channel
             List<Channel> receiverChannels = UserChannelSession.getMultiChannels(receiverId);
             // 判断当前接收者是否是离线状态
             if (receiverChannels == null || receiverChannels.size() == 0 || receiverChannels.isEmpty()) {
@@ -71,12 +71,25 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                     if (findChannel != null) {
                         dataContent.setChatMsg(chatMsg);
                         dataContent.setChatTime(LocalDateUtils.format(chatMsg.getChatTime(), LocalDateUtils.DATETIME_PATTERN));
-                        // 发送消息给在线的用户
+                        // 发送消息给接收者
                         findChannel.writeAndFlush(new TextWebSocketFrame(JsonUtils.objectToJson(dataContent)));
                     }
                 }
             }
         }
+        // 发送者的其他设备端的channel
+        List<Channel> myOtherChannels = UserChannelSession.getMyOtherChannels(senderId, currentChannelIdLong);
+        // 同步消息给当前发送者的其他设备端
+        for (Channel channel : myOtherChannels) {
+            Channel findChannel = clients.find(channel.id());
+            if (findChannel != null) {
+                dataContent.setChatMsg(chatMsg);
+                dataContent.setChatTime(LocalDateUtils.format(chatMsg.getChatTime(), LocalDateUtils.DATETIME_PATTERN));
+                // 其他设备同步消息
+                findChannel.writeAndFlush(new TextWebSocketFrame(JsonUtils.objectToJson(dataContent)));
+            }
+        }
+        // 输出userId和channel的关联数据
         UserChannelSession.outputMulti();
     }
 
