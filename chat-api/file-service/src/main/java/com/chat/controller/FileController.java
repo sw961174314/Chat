@@ -12,13 +12,15 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -189,6 +191,29 @@ public class FileController {
         // 批量删除图片
         MinIOUtils.removeFile(minIOConfig.getBucketName(), imageName);
         return GraceJSONResult.ok();
+    }
+
+    /**
+     * 聊天图片上传
+     * @param file
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("uploadChatPhoto")
+    public GraceJSONResult uploadChatPhoto(@RequestParam("file") MultipartFile file, String userId) throws Exception {
+        if (StringUtils.isBlank(userId)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        // 获得文件原始名称
+        String fileName = file.getOriginalFilename();
+        if (StringUtils.isBlank(fileName)) {
+            return GraceJSONResult.errorCustom(ResponseStatusEnum.FILE_UPLOAD_FAILD);
+        }
+        fileName = "chat" + "/" + userId + "/" + "photo" + "/" + dealWithoutFileName(fileName);
+        // 上传图片到MinIO
+        String imageUrl = MinIOUtils.uploadFile(minIOConfig.getBucketName(), fileName, file.getInputStream(),true);
+        return GraceJSONResult.ok(imageUrl);
     }
 
     /**

@@ -56,7 +56,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             // 当websocket初次open的时候，初始化channel，把channel和用户userid关联起来
             UserChannelSession.putMultiChannels(senderId, currentChannel);
             UserChannelSession.putUserChannelIdRelation(currentChannelIdLong, senderId);
-        } else if (msgType == MsgTypeEnum.WORDS.type) {
+        } else if (msgType == MsgTypeEnum.WORDS.type || msgType == MsgTypeEnum.IMAGE.type) {
             // 接收者channel
             List<Channel> receiverChannels = UserChannelSession.getMultiChannels(receiverId);
             // 判断当前接收者是否是离线状态
