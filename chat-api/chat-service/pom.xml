@@ -23,5 +23,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.chat</groupId>
+            <artifactId>chat-pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

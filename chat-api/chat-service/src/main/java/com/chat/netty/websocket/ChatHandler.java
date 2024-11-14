@@ -1,5 +1,9 @@
 package com.chat.netty.websocket;
 
+import com.chat.enums.MsgTypeEnum;
+import com.chat.pojo.netty.ChatMsg;
+import com.chat.pojo.netty.DataContent;
+import com.chat.utils.JsonUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -7,6 +11,8 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+
+import java.time.LocalDateTime;
 
 /**
  * 自定义助手类
@@ -22,14 +28,32 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         // 获得客户端传输过来的消息
         String content = msg.text();
         System.out.println("接收到的数据：" + content);
+        // 1.获取客户端发来的消息并解析
+        DataContent dataContent = JsonUtils.jsonToPojo(content, DataContent.class);
+        // 用户的聊天内容entity
+        ChatMsg chatMsg = dataContent.getChatMsg();
+        // 聊天内容
+        String msgText = chatMsg.getMsg();
+        // 发送者的用户id
+        String senderId = chatMsg.getSenderId();
+        // 接受者的用户id
+        String receiverId = chatMsg.getReceiverId();
+        // 时间校准，以服务器的时间为准
+        chatMsg.setChatTime(LocalDateTime.now());
+        // 消息类型
+        Integer msgType = chatMsg.getMsgType();
         // 获取channel
         Channel currentChannel = ctx.channel();
         String currentChannelIdLong = currentChannel.id().asLongText();
         String currentChannelIdShort = currentChannel.id().asShortText();
-        System.out.println("客户端currentChannelIdLong：" + currentChannelIdLong);
-        System.out.println("客户端currentChannelIdShort：" + currentChannelIdShort);
-        // 将数据返回给前端
-        currentChannel.writeAndFlush(new TextWebSocketFrame(currentChannelIdLong));
+
+        // 2.判断消息类型，根据不同的类型来处理不同的业务
+        if (msgType == MsgTypeEnum.CONNECT_INIT.type) {
+            // 当websocket初次open的时候，初始化channel，把channel和用户userid关联起来
+            UserChannelSession.putMultiChannels(senderId, currentChannel);
+            UserChannelSession.putUserChannelIdRelation(currentChannelIdLong, senderId);
+        }
+        UserChannelSession.outputMulti();
     }
 
     /**
