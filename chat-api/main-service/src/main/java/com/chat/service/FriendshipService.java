@@ -47,4 +47,12 @@ public interface FriendshipService {
      * @param friendId
      */
     public void delete(String myId, String friendId);
+
+    /**
+     * 判断两个用户之间的关系是否是拉黑关系
+     * @param friendId1
+     * @param friendId2
+     * @return
+     */
+    public boolean isBlackEachOther(String friendId1, String friendId2);
 }

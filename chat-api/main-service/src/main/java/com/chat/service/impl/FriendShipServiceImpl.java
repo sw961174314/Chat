@@ -75,4 +75,15 @@ public class FriendShipServiceImpl extends BaseInfoProperties implements Friends
         deleteWrapper2.eq("my_id", friendId).eq("friend_id", myId);
         friendshipMapper.delete(deleteWrapper2);
     }
+
+    @Override
+    public boolean isBlackEachOther(String friendId1, String friendId2) {
+        QueryWrapper<Friendship> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1.eq("my_id", friendId1).eq("friend_id", friendId2).eq("is_black",YesOrNo.YES.type);
+        Friendship friendship1 = friendshipMapper.selectOne(queryWrapper1);
+        QueryWrapper<Friendship> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("my_id", friendId2).eq("friend_id", friendId1).eq("is_black",YesOrNo.YES.type);
+        Friendship friendship2 = friendshipMapper.selectOne(queryWrapper1);
+        return friendship1 != null || friendship2 != null;
+    }
 }

@@ -10,6 +10,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -124,5 +125,18 @@ public class FriendshipController extends BaseInfoProperties {
         }
         friendshipService.delete(myId, friendId);
         return GraceJSONResult.ok();
+    }
+
+    /**
+     * 判断两个用户之间的关系是否是拉黑关系
+     * @param friendId1
+     * @param friendId2
+     * @return
+     */
+    @GetMapping("isBlack")
+    public GraceJSONResult isBlack(String friendId1, String friendId2) {
+        // 需要查询两次 A拉黑B，B拉黑A，AB相互拉黑
+        // 只需要符合其中的一个条件，就表示双方发送消息不可送达
+        return GraceJSONResult.ok(friendshipService.isBlackEachOther(friendId1, friendId2));
     }
 }

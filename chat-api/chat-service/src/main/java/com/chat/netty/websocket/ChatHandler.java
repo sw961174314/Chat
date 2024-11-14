@@ -1,10 +1,12 @@
 package com.chat.netty.websocket;
 
 import com.chat.enums.MsgTypeEnum;
+import com.chat.grace.result.GraceJSONResult;
 import com.chat.pojo.netty.ChatMsg;
 import com.chat.pojo.netty.DataContent;
 import com.chat.utils.JsonUtils;
 import com.chat.utils.LocalDateUtils;
+import com.chat.utils.OkHttpUtil;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -40,6 +42,13 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         String senderId = chatMsg.getSenderId();
         // 接受者的用户id
         String receiverId = chatMsg.getReceiverId();
+        // 判断是否是黑名单
+        GraceJSONResult result = OkHttpUtil.get("http://127.0.0.1:1000/friendship/isBlack?friendId1=" + senderId + "&friendId2=" + receiverId);
+        boolean isBlack = (boolean) result.getData();
+        if (isBlack) {
+            System.out.println("用户：" + senderId + "与用户：" + receiverId + "之间存在黑名单关系，无法正常发送消息");
+            return;
+        }
         // 时间校准，以服务器的时间为准
         chatMsg.setChatTime(LocalDateTime.now());
         // 消息类型
