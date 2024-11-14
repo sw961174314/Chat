@@ -1,6 +1,7 @@
 package com.chat.netty;
 
 import com.chat.netty.handler.HttpServerInitializer;
+import com.chat.netty.websocket.WSServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -22,7 +23,7 @@ public class ChatApplication {
             // 把主从线程池组放入到启动类中
             // channel()设置Nio双向通道
             // childHandler()设置处理器，主要用于处理workerGroup
-            server.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).childHandler(new HttpServerInitializer());
+            server.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).childHandler(new WSServerInitializer());
             // 启动server，并且绑定端口号为875，同时启动方式为同步
             ChannelFuture channelFuture = server.bind(875).sync();
             // 监听关闭的channel
