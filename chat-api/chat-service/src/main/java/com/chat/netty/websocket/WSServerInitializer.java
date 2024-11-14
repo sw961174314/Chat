@@ -7,6 +7,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * WebSocket初始化器，channel注册后，会执行里面相应的方法
@@ -31,7 +32,14 @@ public class WSServerInitializer extends ChannelInitializer<SocketChannel> {
         // 此handler会帮我们处理一些比较复杂繁重的操作，会处理一些握手操作：handShaking（clost,ping,pong）ping+pong=心跳
         // 对于WebSocket来说，数据都是以frames进行传输的，不同的数据类型对应不同的frames
         pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
-        // 添加自定义的助手类
+        // 添加自定义助手类
         pipeline.addLast(new ChatHandler());
+
+        /* 用于心跳支持 */
+        // 针对客户端，如果在3分钟内没有向服务端发送读写心跳（ALL），则主动断开连接
+        // 如果是读空闲或者写空闲，不做任何处理
+        pipeline.addLast(new IdleStateHandler(120, 180, 30*60));
+        // 添加心跳助手类
+        pipeline.addLast(new HeartBeartHandler());
     }
 }
