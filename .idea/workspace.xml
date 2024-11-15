@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/base-service/src/main/java/com/chat/rabbitmq/RabbitMQTestConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/base-service/src/main/java/com/chat/rabbitmq/RabbitMQTestConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/websocket/ChatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/websocket/ChatHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/websocket/UserChannelSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/websocket/UserChannelSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/rabbitmq/RabbitMQConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/file-service/src/main/java/com/chat/rabbitmq/RabbitMQConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/service/impl/ChatMessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/main-service/src/main/java/com/chat/service/impl/ChatMessageServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-gateway/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-gateway/src/main/resources/application-dev.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,11 +73,11 @@
       <recent name="E:\Project\Chat\chat-common\src\main\java\com\chat" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.chat.controller" />
       <recent name="com.chat.rabbitmq" />
       <recent name="com.chat.service.impl" />
       <recent name="com.chat.service" />
       <recent name="com.chat.netty.websocket" />
-      <recent name="com.chat.controller" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -174,11 +172,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.GatewayApplicaiton" />
-        <item itemvalue="Spring Boot.AuthApplicaiton" />
-        <item itemvalue="Spring Boot.MainApplication" />
-        <item itemvalue="Spring Boot.FileApplicaiton" />
         <item itemvalue="Application.ChatApplication" />
+        <item itemvalue="Spring Boot.MainApplication" />
+        <item itemvalue="Spring Boot.GatewayApplicaiton" />
+        <item itemvalue="Spring Boot.FileApplicaiton" />
+        <item itemvalue="Spring Boot.AuthApplicaiton" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +203,7 @@
       <workItem from="1731456139023" duration="992000" />
       <workItem from="1731469044476" duration="5042000" />
       <workItem from="1731543252448" duration="20644000" />
-      <workItem from="1731630139476" duration="7394000" />
+      <workItem from="1731630139476" duration="10233000" />
     </task>
     <servers />
   </component>

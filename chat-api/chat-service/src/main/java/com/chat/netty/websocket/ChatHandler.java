@@ -92,6 +92,8 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                     }
                 }
             }
+            // 把聊天信息作为mq的消息发送给消费者进行消费处理（保存到数据库）
+            MessagePublisher.sendMsgToSave(chatMsg);
         }
         // 发送者的其他设备端的channel
         List<Channel> myOtherChannels = UserChannelSession.getMyOtherChannels(senderId, currentChannelIdLong);
@@ -105,8 +107,6 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                 findChannel.writeAndFlush(new TextWebSocketFrame(JsonUtils.objectToJson(dataContent)));
             }
         }
-        // 把聊天信息作为mq的消息发送给消费者进行消费处理（保存到数据库）
-        MessagePublisher.sendMsgToSave(chatMsg);
         // 输出userId和channel的关联数据
         UserChannelSession.outputMulti();
     }

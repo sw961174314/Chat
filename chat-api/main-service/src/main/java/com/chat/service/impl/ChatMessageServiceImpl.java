@@ -27,5 +27,12 @@ public class ChatMessageServiceImpl extends BaseInfoProperties implements ChatMe
         // 手动设置聊天信息的主键id
         message.setId(chatMsg.getMsgId());
         chatMessageMapper.insert(message);
+
+        // 发送者id
+        String senderId = chatMsg.getSenderId();
+        // 接收者id
+        String receiverId = chatMsg.getReceiverId();
+        // 通过Redis累加信息接收者的对应记录
+        redis.incrementHash(CHAT_MSG_LIST + ":" + receiverId, senderId, 1);
     }
 }
