@@ -1,6 +1,10 @@
 package com.chat.netty.websocket;
 
+import com.chat.pojo.netty.DataContent;
+import com.chat.utils.JsonUtils;
 import io.netty.channel.Channel;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,5 +91,23 @@ public class UserChannelSession {
             }
         }
         System.out.println("========");
+    }
+
+    /**
+     * 同步给当前接收者的其他设备聊天信息
+     * @param receiverChannels
+     * @param dataContent
+     */
+    public static void sendToTarget(List<Channel> receiverChannels, DataContent dataContent) {
+        ChannelGroup clients = ChatHandler.clients;
+        if (receiverChannels == null) {
+            return;
+        }
+        for (Channel c : receiverChannels) {
+            Channel findChannel = clients.find(c.id());
+            if (findChannel != null) {
+                findChannel.writeAndFlush(new TextWebSocketFrame(JsonUtils.objectToJson(dataContent)));
+            }
+        }
     }
 }

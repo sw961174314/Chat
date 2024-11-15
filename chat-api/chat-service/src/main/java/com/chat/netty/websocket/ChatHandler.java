@@ -1,7 +1,10 @@
 package com.chat.netty.websocket;
 
+import com.a3test.component.idworker.IdWorkerConfigBean;
+import com.a3test.component.idworker.Snowflake;
 import com.chat.enums.MsgTypeEnum;
 import com.chat.grace.result.GraceJSONResult;
+import com.chat.netty.mq.MessagePublisher;
 import com.chat.pojo.netty.ChatMsg;
 import com.chat.pojo.netty.DataContent;
 import com.chat.utils.JsonUtils;
@@ -66,6 +69,10 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             UserChannelSession.putMultiChannels(senderId, currentChannel);
             UserChannelSession.putUserChannelIdRelation(currentChannelIdLong, senderId);
         } else if (msgType == MsgTypeEnum.WORDS.type || msgType == MsgTypeEnum.IMAGE.type || msgType == MsgTypeEnum.VIDEO.type || msgType == MsgTypeEnum.VOICE.type) {
+            // 此处为mq异步解耦，保存信息到数据库，数据库无法获得信息的主键id，所以此处可以用snowflake生成主键id
+            Snowflake snowflake = new Snowflake(new IdWorkerConfigBean());
+            String sid = snowflake.nextId();
+            chatMsg.setMsgId(sid);
             // 接收者channel
             List<Channel> receiverChannels = UserChannelSession.getMultiChannels(receiverId);
             // 判断当前接收者是否是离线状态
@@ -98,6 +105,8 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                 findChannel.writeAndFlush(new TextWebSocketFrame(JsonUtils.objectToJson(dataContent)));
             }
         }
+        // 把聊天信息作为mq的消息发送给消费者进行消费处理（保存到数据库）
+        MessagePublisher.sendMsgToSave(chatMsg);
         // 输出userId和channel的关联数据
         UserChannelSession.outputMulti();
     }
