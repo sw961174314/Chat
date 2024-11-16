@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/ChatApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/ChatApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/test/java/com/chat/MyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/test/java/com/chat/MyTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +86,49 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MyTest.testJedisPool">
+  <component name="RunManager" selected="Application.ChatApplication2">
+    <configuration name="ChatApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.chat.netty.ChatApplication" />
+      <module name="chat-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.chat.netty.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChatApplication2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.chat.netty.ChatApplication2" />
+      <module name="chat-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.chat.netty.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyTest.testGetJedisNettyPort" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="chat-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.chat.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.chat" />
+      <option name="MAIN_CLASS_NAME" value="com.chat.MyTest" />
+      <option name="METHOD_NAME" value="testGetJedisNettyPort" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MyTest.testJedisPool" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="chat-service" />
       <extension name="coverage">
@@ -98,46 +141,6 @@
       <option name="MAIN_CLASS_NAME" value="com.chat.MyTest" />
       <option name="METHOD_NAME" value="testJedisPool" />
       <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AuthApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="auth-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.AuthApplicaiton" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.chat.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FileApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="file-service" />
-      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.FileApplicaiton" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.chat.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GatewayApplicaiton" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="chat-gateway" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.GatewayApplicaiton" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.chat.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -173,11 +176,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ChatApplication2" />
+        <item itemvalue="Application.ChatApplication" />
+        <item itemvalue="JUnit.MyTest.testGetJedisNettyPort" />
         <item itemvalue="JUnit.MyTest.testJedisPool" />
         <item itemvalue="Spring Boot.MainApplication" />
-        <item itemvalue="Spring Boot.GatewayApplicaiton" />
-        <item itemvalue="Spring Boot.FileApplicaiton" />
-        <item itemvalue="Spring Boot.AuthApplicaiton" />
       </list>
     </recent_temporary>
   </component>
@@ -205,7 +208,7 @@
       <workItem from="1731469044476" duration="5042000" />
       <workItem from="1731543252448" duration="20644000" />
       <workItem from="1731630139476" duration="12356000" />
-      <workItem from="1731715538906" duration="1704000" />
+      <workItem from="1731715538906" duration="3182000" />
     </task>
     <servers />
   </component>

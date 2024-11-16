@@ -1,6 +1,5 @@
 package com.chat.netty;
 
-import com.chat.netty.handler.HttpServerInitializer;
 import com.chat.netty.util.JedisPoolUtils;
 import com.chat.netty.websocket.WSServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Netty服务的启动类
  */
-public class ChatApplication {
+public class ChatApplication2 {
 
     // netty默认端口
     public static final Integer nettyDefaultPort = 875;
