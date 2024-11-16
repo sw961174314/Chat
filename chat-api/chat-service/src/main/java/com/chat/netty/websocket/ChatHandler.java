@@ -5,8 +5,11 @@ import com.a3test.component.idworker.Snowflake;
 import com.chat.enums.MsgTypeEnum;
 import com.chat.grace.result.GraceJSONResult;
 import com.chat.netty.mq.MessagePublisher;
+import com.chat.netty.util.JedisPoolUtils;
+import com.chat.netty.util.ZookeeperRegister;
 import com.chat.pojo.netty.ChatMsg;
 import com.chat.pojo.netty.DataContent;
+import com.chat.pojo.netty.NettyServerNode;
 import com.chat.utils.JsonUtils;
 import com.chat.utils.LocalDateUtils;
 import com.chat.utils.OkHttpUtil;
@@ -17,6 +20,7 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
+import redis.clients.jedis.Jedis;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -68,6 +72,14 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             // 当websocket初次open的时候，初始化channel，把channel和用户userid关联起来
             UserChannelSession.putMultiChannels(senderId, currentChannel);
             UserChannelSession.putUserChannelIdRelation(currentChannelIdLong, senderId);
+
+            // 获取当前节点
+            NettyServerNode minNode = dataContent.getServerNode();
+            // 初次连接后，该节点下的在线人数累加
+            ZookeeperRegister.incrementOnlineCounts(minNode);
+            // 获得ip和端口，在Redis中设置关系，以便在前端设备断开后减少在线人数
+            Jedis jedis = JedisPoolUtils.getJedis();
+            jedis.set(senderId, JsonUtils.objectToJson(minNode));
         } else if (msgType == MsgTypeEnum.WORDS.type || msgType == MsgTypeEnum.IMAGE.type || msgType == MsgTypeEnum.VIDEO.type || msgType == MsgTypeEnum.VOICE.type) {
             // 此处为mq异步解耦，保存信息到数据库，数据库无法获得信息的主键id，所以此处可以用snowflake生成主键id
             Snowflake snowflake = new Snowflake(new IdWorkerConfigBean());
@@ -141,6 +153,10 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         UserChannelSession.removeUselessChannels(userId, currentChannelIdLong);
         // 客户端关闭连接
         clients.remove(currentChannel);
+        // 获取当前服务节点，并减少人数
+        Jedis jedis = JedisPoolUtils.getJedis();
+        NettyServerNode minNode = JsonUtils.jsonToPojo(jedis.get(userId), NettyServerNode.class);
+        ZookeeperRegister.decrementOnlineCounts(minNode);
     }
 
     /**
@@ -162,5 +178,9 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         ctx.channel().close();
         // 随后从ChannelGroup中移除对应的channel
         clients.remove(currentChannel);
+        // 获取当前服务节点，并减少人数
+        Jedis jedis = JedisPoolUtils.getJedis();
+        NettyServerNode minNode = JsonUtils.jsonToPojo(jedis.get(userId), NettyServerNode.class);
+        ZookeeperRegister.decrementOnlineCounts(minNode);
     }
 }
