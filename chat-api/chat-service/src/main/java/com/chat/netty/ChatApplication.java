@@ -2,6 +2,7 @@ package com.chat.netty;
 
 import com.chat.netty.handler.HttpServerInitializer;
 import com.chat.netty.util.JedisPoolUtils;
+import com.chat.netty.util.ZookeeperRegister;
 import com.chat.netty.websocket.WSServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -59,6 +60,8 @@ public class ChatApplication {
 
         // Netty服务启动的时候，从Redis中查找有没有端口，如果没有则使用875，如果有则端口累加10再启动
         Integer nettyPort = selectPort(nettyDefaultPort);
+        // 向Zookeeper注册Netty服务节点
+        ZookeeperRegister.registerNettyServer("server-list", ZookeeperRegister.getLocalIP(), nettyPort);
         try {
             // 构建Netty服务器
             ServerBootstrap server = new ServerBootstrap();
