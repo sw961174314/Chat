@@ -36,3 +36,12 @@ spring:
     username: root
     password: 123456
     virtual-host: chat
+
+zookeeper:
+  curator:
+    host: 127.0.0.1:3191
+    connectionTimeoutMs: 30000
+    sessionTimeoutMs: 3000
+    sleepMsBetweenRetry: 2000
+    maxRetries: 3
+    namespace: chat-im
