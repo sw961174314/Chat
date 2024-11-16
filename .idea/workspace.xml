@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/ChatApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/ChatApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/test/java/com/chat/MyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/test/java/com/chat/MyTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,11 +72,11 @@
       <recent name="E:\Project\Chat\chat-common\src\main\java\com\chat" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.chat.netty" />
       <recent name="com.chat.controller" />
       <recent name="com.chat.rabbitmq" />
       <recent name="com.chat.service.impl" />
       <recent name="com.chat.service" />
-      <recent name="com.chat.netty.websocket" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -86,7 +86,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ChatApplication2">
+  <component name="RunManager" selected="JUnit.MyTest.testGetCurator">
     <configuration name="ChatApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.chat.netty.ChatApplication" />
       <module name="chat-service" />
@@ -109,6 +109,22 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyTest.testGetCurator" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="chat-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.chat.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.chat" />
+      <option name="MAIN_CLASS_NAME" value="com.chat.MyTest" />
+      <option name="METHOD_NAME" value="testGetCurator" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -145,19 +161,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MainApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="main-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.MainApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.chat.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
       <method v="2">
@@ -176,11 +179,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MyTest.testGetCurator" />
         <item itemvalue="Application.ChatApplication2" />
         <item itemvalue="Application.ChatApplication" />
         <item itemvalue="JUnit.MyTest.testGetJedisNettyPort" />
         <item itemvalue="JUnit.MyTest.testJedisPool" />
-        <item itemvalue="Spring Boot.MainApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -208,7 +211,7 @@
       <workItem from="1731469044476" duration="5042000" />
       <workItem from="1731543252448" duration="20644000" />
       <workItem from="1731630139476" duration="12356000" />
-      <workItem from="1731715538906" duration="3182000" />
+      <workItem from="1731715538906" duration="6506000" />
     </task>
     <servers />
   </component>

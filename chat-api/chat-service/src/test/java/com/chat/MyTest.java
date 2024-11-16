@@ -1,6 +1,9 @@
 package com.chat;
 
+import com.chat.netty.util.CuratorConfig;
 import com.chat.netty.util.JedisPoolUtils;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.zookeeper.data.Stat;
 import org.junit.jupiter.api.Test;
 import redis.clients.jedis.Jedis;
 
@@ -48,5 +51,13 @@ public class MyTest {
             nettyPort = currentPort;
         }
         return nettyPort;
+    }
+
+    @Test
+    public void testGetCurator() throws Exception {
+        CuratorFramework zkClient = CuratorConfig.getClient();
+        Stat stat = zkClient.checkExists().forPath("/hello");
+        String data = new String(zkClient.getData().forPath("/hello"));
+        System.out.println(data);
     }
 }
