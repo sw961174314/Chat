@@ -29,7 +29,7 @@ import java.util.List;
  * 自定义助手类
  */
 // TextWebSocketFrame：用于为websocket专门处理的文本数据对象，Frame是数据的载体
-public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+public class ChatHandler_Single extends SimpleChannelInboundHandler<TextWebSocketFrame> {
 
     // 用于记录和管理所有客户端的channel组
     public static ChannelGroup clients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
@@ -85,16 +85,39 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             Snowflake snowflake = new Snowflake(new IdWorkerConfigBean());
             String sid = snowflake.nextId();
             chatMsg.setMsgId(sid);
-            // 判断是否是语音类型
-            if (msgType == MsgTypeEnum.VOICE.type) {
-                chatMsg.setIsRead(false);
+            // 接收者channel
+            List<Channel> receiverChannels = UserChannelSession.getMultiChannels(receiverId);
+            // 判断当前接收者是否是离线状态
+            if (receiverChannels == null || receiverChannels.size() == 0 || receiverChannels.isEmpty()) {
+                // receiverChannels为空，表示用户离线/断线状态，消息不需要发送，后续可以存储到数据库中
+                chatMsg.setIsReceiverOnLine(false);
+            } else {
+                chatMsg.setIsReceiverOnLine(true);
+                // 当receiverChannels不为空的时候，同账户多端设备接收消息
+                for (Channel channel : receiverChannels) {
+                    Channel findChannel = clients.find(channel.id());
+                    if (findChannel != null) {
+                        dataContent.setChatMsg(chatMsg);
+                        dataContent.setChatTime(LocalDateUtils.format(chatMsg.getChatTime(), LocalDateUtils.DATETIME_PATTERN));
+                        // 发送消息给接收者
+                        findChannel.writeAndFlush(new TextWebSocketFrame(JsonUtils.objectToJson(dataContent)));
+                    }
+                }
             }
-            dataContent.setChatMsg(chatMsg);
-            dataContent.setChatTime(LocalDateUtils.format(chatMsg.getChatTime(), LocalDateUtils.DATETIME_PATTERN));
-            // 把聊天信息作为mq消息进行广播（发送的消息被RabbitMQConnectUtils中的listen方法监听到）
-            MessagePublisher.sendMsgToNettyServer(JsonUtils.objectToJson(dataContent));
             // 把聊天信息作为mq的消息发送给消费者进行消费处理（保存到数据库）
             MessagePublisher.sendMsgToSave(chatMsg);
+        }
+        // 发送者的其他设备端的channel
+        List<Channel> myOtherChannels = UserChannelSession.getMyOtherChannels(senderId, currentChannelIdLong);
+        // 同步消息给当前发送者的其他设备端
+        for (Channel channel : myOtherChannels) {
+            Channel findChannel = clients.find(channel.id());
+            if (findChannel != null) {
+                dataContent.setChatMsg(chatMsg);
+                dataContent.setChatTime(LocalDateUtils.format(chatMsg.getChatTime(), LocalDateUtils.DATETIME_PATTERN));
+                // 其他设备同步消息
+                findChannel.writeAndFlush(new TextWebSocketFrame(JsonUtils.objectToJson(dataContent)));
+            }
         }
         // 输出userId和channel的关联数据
         UserChannelSession.outputMulti();

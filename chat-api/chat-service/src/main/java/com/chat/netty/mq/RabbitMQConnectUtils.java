@@ -1,5 +1,8 @@
 package com.chat.netty.mq;
 
+import com.chat.netty.websocket.UserChannelSession;
+import com.chat.pojo.netty.DataContent;
+import com.chat.utils.JsonUtils;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -117,11 +120,29 @@ public class RabbitMQConnectUtils {
              */
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                // 交换机
+                String msg = new String(body);
+                System.out.println("body = " + msg);
+
                 String exchange = envelope.getExchange();
-                if (exchange.equalsIgnoreCase(exchangeName)) {
-                    String msg = new String(body);
-                    System.out.println(msg);
+                System.out.println("exchange = " + exchange);
+                // 判断是否在当前交换机内
+                if (exchange.equalsIgnoreCase("fanout_exchange")) {
+                    DataContent dataContent = JsonUtils.jsonToPojo(msg, DataContent.class);
+                    // 发送者Id
+                    String senderId = dataContent.getChatMsg().getSenderId();
+                    // 接收者Id
+                    String receiverId = dataContent.getChatMsg().getReceiverId();
+
+                    // 广播至集群的其他节点并且发送给用户聊天信息
+                    List<io.netty.channel.Channel> receiverChannels =
+                            UserChannelSession.getMultiChannels(receiverId);
+                    UserChannelSession.sendToTarget(receiverChannels, dataContent);
+
+                    // 广播至集群的其他节点并且同步给自己其他设备聊天信息
+                    String currentChannelId = dataContent.getExtend();
+                    List<io.netty.channel.Channel> senderChannels =
+                            UserChannelSession.getMyOtherChannels(senderId, currentChannelId);
+                    UserChannelSession.sendToTarget(senderChannels, dataContent);
                 }
             }
         };

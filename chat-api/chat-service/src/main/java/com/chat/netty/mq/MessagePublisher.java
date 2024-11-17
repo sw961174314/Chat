@@ -68,7 +68,12 @@ public class MessagePublisher {
                 ROUTING_KEY_CHAT_MSG_SEND);
     }
 
-    public static void sendMsgToOtherNettyServer(String msg) throws Exception {
+    /**
+     * 把聊天信息作为mq消息进行广播
+     * @param msg
+     * @throws Exception
+     */
+    public static void sendMsgToNettyServer(String msg) throws Exception {
         RabbitMQConnectUtils connectUtils = new RabbitMQConnectUtils();
         String fanout_exchange = "fanout_exchange";
         connectUtils.sendMsg(msg, fanout_exchange, "");

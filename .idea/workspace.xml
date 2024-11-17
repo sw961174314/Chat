@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="504f2bf4-8b2c-4769-9ef7-39a82badc13c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/ChatApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/ChatApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/ChatApplication2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/handler/HttpHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/handler/HttpServerInitializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/mq/MessagePublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/mq/MessagePublisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/mq/RabbitMQConnectUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/mq/RabbitMQConnectUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/websocket/ChatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/websocket/ChatHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/websocket/UserChannelSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-api/chat-service/src/main/java/com/chat/netty/websocket/UserChannelSession.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,11 +76,11 @@
       <recent name="E:\Project\Chat\chat-common\src\main\java\com\chat" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.chat.netty.websocket" />
       <recent name="com.chat.netty" />
       <recent name="com.chat.zk" />
       <recent name="com.chat.controller" />
       <recent name="com.chat.rabbitmq" />
-      <recent name="com.chat.service.impl" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -224,8 +227,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ChatApplication2" />
         <item itemvalue="Application.ChatApplication" />
+        <item itemvalue="Application.ChatApplication2" />
         <item itemvalue="JUnit.MyTest.testGetCurator" />
         <item itemvalue="JUnit.MyTest.testGetJedisNettyPort" />
         <item itemvalue="JUnit.MyTest.testJedisPool" />
@@ -260,7 +263,7 @@
       <workItem from="1731543252448" duration="20644000" />
       <workItem from="1731630139476" duration="12356000" />
       <workItem from="1731715538906" duration="15162000" />
-      <workItem from="1731801651826" duration="4864000" />
+      <workItem from="1731801651826" duration="9321000" />
     </task>
     <servers />
   </component>
