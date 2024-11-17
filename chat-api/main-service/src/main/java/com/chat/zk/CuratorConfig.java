@@ -1,10 +1,15 @@
 package com.chat.zk;
 
+import com.chat.pojo.netty.NettyServerNode;
+import com.chat.utils.JsonUtils;
+import com.chat.utils.RedisOperator;
+import jakarta.annotation.Resource;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.cache.CuratorCache;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -33,6 +38,11 @@ public class CuratorConfig {
     // 命名空间(root根节点名称)
     private String namespace;
 
+    public static final String PATH = "/server-list";
+
+    @Resource
+    private RedisOperator redis;
+
     @Bean("curatorClient")
     public CuratorFramework curatorClient() {
         // 定义重试策略
@@ -47,6 +57,39 @@ public class CuratorConfig {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }*/
+        // 注册监听watcher的事件
+        addWatch(PATH, client);
         return client;
+    }
+
+    /**
+     * 注册节点的事件监听
+     * @param path
+     * @param client
+     */
+    public void addWatch(String path, CuratorFramework client) {
+        CuratorCache curatorCache = CuratorCache.build(client, path);
+        curatorCache.listenable().addListener((type, oldData, data) -> {
+            // type：当前监听到的事件类型
+            // oldData：节点更新前的数据、状态
+            // data：节点更新后的数据、状态
+            switch (type.name()) {
+                case "NODE_CREATED":
+                    log.info("(子)节点创建");
+                    break;
+                case "NODE_CHANGED":
+                    log.info("(子)节点变更");
+                    break;
+                case "NODE_DELETED":
+                    log.info("(子)节点删除");
+                    NettyServerNode oldNode = JsonUtils.jsonToPojo(new String(oldData.getData()), NettyServerNode.class);
+                    String oldPort = oldNode.getPort() + "";
+                    String portKey = "netty_port";
+                    redis.hdel(portKey, oldPort);
+                    break;
+            }
+        });
+        // 开启监听
+        curatorCache.start();
     }
 }
