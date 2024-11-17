@@ -1,6 +1,7 @@
 package com.chat.netty;
 
 import com.chat.netty.handler.HttpServerInitializer;
+import com.chat.netty.mq.RabbitMQConnectUtils;
 import com.chat.netty.util.JedisPoolUtils;
 import com.chat.netty.util.ZookeeperRegister;
 import com.chat.netty.websocket.WSServerInitializer;
@@ -62,6 +63,10 @@ public class ChatApplication {
         Integer nettyPort = selectPort(nettyDefaultPort);
         // 向Zookeeper注册Netty服务节点
         ZookeeperRegister.registerNettyServer("server-list", ZookeeperRegister.getLocalIP(), nettyPort);
+        // 启动消费者进行监听，队列可以根据动态生成的端口进行动态拼接
+        String queueName = "queue_" + ZookeeperRegister.getLocalIP() + "_" + nettyPort;
+        RabbitMQConnectUtils mqConnectUtils = new RabbitMQConnectUtils();
+        mqConnectUtils.listen("fanout_exchange", queueName);
         try {
             // 构建Netty服务器
             ServerBootstrap server = new ServerBootstrap();

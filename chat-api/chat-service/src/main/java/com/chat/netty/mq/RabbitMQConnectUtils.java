@@ -1,8 +1,5 @@
 package com.chat.netty.mq;
 
-import com.chat.netty.websocket.UserChannelSession;
-import com.chat.pojo.netty.DataContent;
-import com.chat.utils.JsonUtils;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
@@ -90,20 +87,25 @@ public class RabbitMQConnectUtils {
         getAndSetConnection(false, connection);
     }
 
-    public void listen(String fanout_exchange, String queueName) throws Exception {
-
+    /**
+     * 开启消息队列监听
+     * @param exchangeName
+     * @param queueName
+     * @throws Exception
+     */
+    public void listen(String exchangeName, String queueName) throws Exception {
         Connection connection = getConnection();
         Channel channel = connection.createChannel();
 
-        // FANOUT 发布订阅模式(广播模式)
-        channel.exchangeDeclare(fanout_exchange,
+        // 定义交换机 发布订阅模式(广播模式)
+        channel.exchangeDeclare(exchangeName,
                 BuiltinExchangeType.FANOUT,
                 true, false, false, null);
-
+        // 定义队列
         channel.queueDeclare(queueName, true, false, false, null);
-
-        channel.queueBind(queueName, fanout_exchange, "");
-
+        // 绑定交换机与队列
+        channel.queueBind(queueName, exchangeName, "");
+        // 消费者
         Consumer consumer = new DefaultConsumer(channel){
             /**
              * 重写消息配送方法
@@ -114,35 +116,17 @@ public class RabbitMQConnectUtils {
              * @throws IOException
              */
             @Override
-            public void handleDelivery(String consumerTag,
-                                       Envelope envelope,
-                                       AMQP.BasicProperties properties,
-                                       byte[] body) throws IOException {
-
-                String msg = new String(body);
-                System.out.println("body = " + msg);
-
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+                // 交换机
                 String exchange = envelope.getExchange();
-                System.out.println("exchange = " + exchange);
-                if (exchange.equalsIgnoreCase("fanout_exchange")) {
-                    DataContent dataContent = JsonUtils.jsonToPojo(msg, DataContent.class);
-                    String senderId = dataContent.getChatMsg().getSenderId();
-                    String receiverId = dataContent.getChatMsg().getReceiverId();
-
-                    // 广播至集群的其他节点并且发送给用户聊天信息
-                    List<io.netty.channel.Channel> receiverChannels =
-                            UserChannelSession.getMultiChannels(receiverId);
-                    UserChannelSession.sendToTarget(receiverChannels, dataContent);
-
-                    // 广播至集群的其他节点并且同步给自己其他设备聊天信息
-                    String currentChannelId = dataContent.getExtend();
-                    List<io.netty.channel.Channel> senderChannels =
-                            UserChannelSession.getMyOtherChannels(senderId, currentChannelId);
-                    UserChannelSession.sendToTarget(senderChannels, dataContent);
+                if (exchange.equalsIgnoreCase(exchangeName)) {
+                    String msg = new String(body);
+                    System.out.println(msg);
                 }
             }
         };
         /**
+         * 开启监听
          * queue: 监听的队列名
          * autoAck: 是否自动确认，true：告知mq消费者已经消费的确认通知
          * callback: 回调函数，处理监听到的消息
