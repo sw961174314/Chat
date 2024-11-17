@@ -11,7 +11,7 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.recipes.cache.CuratorCache;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -42,6 +42,9 @@ public class CuratorConfig {
 
     @Resource
     private RedisOperator redis;
+
+    @Resource
+    private RabbitAdmin rabbitAdmin;
 
     @Bean("curatorClient")
     public CuratorFramework curatorClient() {
@@ -83,9 +86,13 @@ public class CuratorConfig {
                 case "NODE_DELETED":
                     log.info("(子)节点删除");
                     NettyServerNode oldNode = JsonUtils.jsonToPojo(new String(oldData.getData()), NettyServerNode.class);
+                    // 移除残留端口
                     String oldPort = oldNode.getPort() + "";
                     String portKey = "netty_port";
                     redis.hdel(portKey, oldPort);
+                    // 移除残留消息队列
+                    String queueName = "netty_queue_" + oldPort;
+                    rabbitAdmin.deleteQueue(queueName);
                     break;
             }
         });
